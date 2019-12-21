@@ -10,7 +10,6 @@ from multimetric.cls.metric_operators import OperatorMetric
 import argparse
 import json
 import os
-import sys
 
 def ArgParser():
     parser = argparse.ArgumentParser(

@@ -5,7 +5,7 @@ class CyclomaticComplexity(BaseMetric):
 
     __exitPoints = [
         "return",
-        "exit"
+        "exit",
         "assert",
         "break",
         "continue",
