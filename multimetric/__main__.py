@@ -34,20 +34,23 @@ if __name__ == '__main__':
 
     for f in _args.files:
         with open(f) as i:
-            _lexer = lexers.get_lexer_for_filename(f)
-            _result["files"][f] = {}
-            tokens = list(_lexer.get_tokens(i.read()))
-            _localMetrics = [LOCMetric(_args), CommentsMetric(_args), OperandsMetric(
-                _args), OperatorMetric(_args), CyclomaticComplexity(_args)]
-            _localCalc = [Halstead(_args), MaintenanceIndex(_args)]
-            for x in _localMetrics:
-                x.parse_tokens(_lexer.name, tokens)
-                _result["files"][f].update(x.get_results())
-            for x in _overallMetrics:
-                x.parse_tokens(_lexer.name, tokens)
-                _result["overall"].update(x.get_results())
-            for x in _localCalc:
-                _result["files"][f].update(x.get_results(_result["files"][f]))
+            try:
+                _lexer = lexers.get_lexer_for_filename(f)
+                _result["files"][f] = {}
+                tokens = list(_lexer.get_tokens(i.read()))
+                _localMetrics = [LOCMetric(_args), CommentsMetric(_args), OperandsMetric(
+                    _args), OperatorMetric(_args), CyclomaticComplexity(_args)]
+                _localCalc = [Halstead(_args), MaintenanceIndex(_args)]
+                for x in _localMetrics:
+                    x.parse_tokens(_lexer.name, tokens)
+                    _result["files"][f].update(x.get_results())
+                for x in _overallMetrics:
+                    x.parse_tokens(_lexer.name, tokens)
+                    _result["overall"].update(x.get_results())
+                for x in _localCalc:
+                    _result["files"][f].update(x.get_results(_result["files"][f]))
+            except UnicodeDecodeError:
+                pass
     for x in _overallCalc:
         _result["overall"].update(x.get_results(_result["overall"]))
     print(json.dumps(_result, indent=2, sort_keys=True))
