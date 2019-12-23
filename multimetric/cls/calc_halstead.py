@@ -25,7 +25,7 @@ class Halstead(CalcMetric):
         self._n1 = float(metrics["operators_uniq"])
         # to avoid any Divbyzero bugs set the minimum to 1
         self._n1 = max(self._n1, 1)
-        self._n1 = max(self._n2, 1)
+        self._n2 = max(self._n2, 1)
         self._N1 = max(self._N1, 1)
         self._N2 = max(self._N2, 1)
 
