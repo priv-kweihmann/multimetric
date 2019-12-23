@@ -27,6 +27,8 @@ class Halstead(CalcMetric):
     def _getVocabulary(self, metrics):
         self._getNs(metrics)
         self._vocabulary = self._n1 + self._n2
+        # to avoid a log(0) the minimum of vocabulary is 1
+        self._vocabulary = max(1, self._vocabulary)
         return self._vocabulary
 
     def _getProgLength(self, metrics):
@@ -38,6 +40,8 @@ class Halstead(CalcMetric):
         self._getVocabulary(metrics)
         self._getProgLength(metrics)
         self._volume = self._length * math.log2(self._vocabulary)
+        # to avoid a log(0) the minimum of volume is 1
+        self._volume = max(1, self._volume)
         return self._volume
 
     def _getDifficulty(self, metrics):
