@@ -82,11 +82,13 @@ Output will be written to stdout as json.
 
 * `comment_ratio` = Comment to Code percentage
 * `cyclomatic_complexity` = Cyclomatic complexity according to McCabe
+* `fanout_external` = Number imports from out of tree modules
+* `fanout_internal` = Number imports from same source tree modules
 * `halstead_bugprop` = Number of delivered bugs according to Halstead
-* `halstead_timerequired` = Time required to program according to Halstead
 * `halstead_difficulty` = Difficulty according to Halstead
-* `halstead_volume` = Volume according to Halstead
 * `halstead_effort` = Effort according to Halstead
+* `halstead_timerequired` = Time required to program according to Halstead
+* `halstead_volume` = Volume according to Halstead
 * `lang` = list of idendified programming languages
 * `loc` = Lines of code
 * `maintainability_index` = Maintainability index

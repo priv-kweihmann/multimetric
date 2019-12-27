@@ -7,6 +7,7 @@ from multimetric.cls.metric_loc import LOCMetric
 from multimetric.cls.metric_operands import OperandsMetric
 from multimetric.cls.metric_operators import OperatorMetric
 from multimetric.cls.calc_average import Average
+from multimetric.cls.metric_fanout import Fanout
 
 import argparse
 import json
@@ -30,8 +31,14 @@ def ArgParser():
 if __name__ == '__main__':
     _args = ArgParser()
     _result = {"files": {}, "overall": {}}
-    _overallMetrics = [LOCMetric(_args), CommentsMetric(_args), OperandsMetric(
-        _args), OperatorMetric(_args), CyclomaticComplexity(_args)]
+    _overallMetrics = [
+                        LOCMetric(_args),
+                        CommentsMetric(_args),
+                        OperandsMetric(_args),
+                        OperatorMetric(_args),
+                        CyclomaticComplexity(_args),
+                        Fanout(_args)
+                      ]
     _overallCalc = [Halstead(_args), MaintenanceIndex(_args)]
 
     for f in _args.files:
@@ -40,8 +47,14 @@ if __name__ == '__main__':
                 _lexer = lexers.get_lexer_for_filename(f)
                 _result["files"][f] = {}
                 tokens = list(_lexer.get_tokens(i.read()))
-                _localMetrics = [LOCMetric(_args), CommentsMetric(_args), OperandsMetric(
-                    _args), OperatorMetric(_args), CyclomaticComplexity(_args)]
+                _localMetrics = [
+                                    LOCMetric(_args),
+                                    CommentsMetric(_args),
+                                    OperandsMetric(_args),
+                                    OperatorMetric(_args),
+                                    CyclomaticComplexity(_args),
+                                    Fanout(_args)
+                                ]
                 _localCalc = [Halstead(_args), MaintenanceIndex(_args)]
                 for x in _localMetrics:
                     x.parse_tokens(_lexer.name, tokens)
