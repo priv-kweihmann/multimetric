@@ -76,6 +76,7 @@ Output will be written to stdout as json.
 
 * `files` contains a list of each file passed by CLI
 * `overall` contains the calculated values for all passed files
+* `stats` contains the statistically calculated values over all files passed [see Statistical additions](#statistics)
 
 #### Item structure
 
@@ -93,6 +94,16 @@ Output will be written to stdout as json.
 * `operands_uniq` = Number of unique used operands
 * `operators_sum` = Number of used operators
 * `operators_uniq` = Number of unique used operators
+
+#### Statistics
+
+The item `stats` contains in addition to the above mentioned the following items, which by themselves contain all the items mentioned at [Item structure](#item-structure)
+
+* `max` = the maximum value of all items of the metric
+* `mean` = statistical mean over all items of the metric
+* `median` = statistical median over all items of the metric
+* `min` = the minimum value of all items of the metric
+* `sd` = standard deviation over all items of the metric
 
 ## Further reading
 

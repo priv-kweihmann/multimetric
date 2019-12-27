@@ -6,10 +6,12 @@ from multimetric.cls.metric_cyclomatic import CyclomaticComplexity
 from multimetric.cls.metric_loc import LOCMetric
 from multimetric.cls.metric_operands import OperandsMetric
 from multimetric.cls.metric_operators import OperatorMetric
+from multimetric.cls.calc_average import Average
 
 import argparse
 import json
 import os
+
 
 def ArgParser():
     parser = argparse.ArgumentParser(
@@ -53,4 +55,5 @@ if __name__ == '__main__':
                 pass
     for x in _overallCalc:
         _result["overall"].update(x.get_results(_result["overall"]))
+    _result = Average(_args).get_results(_result, "files", "overall")
     print(json.dumps(_result, indent=2, sort_keys=True))
