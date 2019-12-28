@@ -1,7 +1,7 @@
-from multimetric.cls.metric import BaseMetric
+from multimetric.cls.base import MetricBase
 
 
-class CyclomaticComplexity(BaseMetric):
+class MetricBaseCyclomaticComplexity(MetricBase):
 
     __exitPoints = [
         "return",
@@ -26,6 +26,8 @@ class CyclomaticComplexity(BaseMetric):
         "||"
     ]
 
+    METRIC_CYCLOMATIC_COMPLEXITY = "cyclomatic_complexity"
+
     def __init__(self, args):
         super().__init__(args)
         self.__conditions = 0
@@ -34,12 +36,12 @@ class CyclomaticComplexity(BaseMetric):
     def parse_tokens(self, language, tokens):
         super().parse_tokens(language, [])
         for x in tokens:
-            if str(x[1]) in CyclomaticComplexity.__exitPoints:
+            if str(x[1]) in MetricBaseCyclomaticComplexity.__exitPoints:
                 self.__exitpoints += 1
-            if str(x[1]) in CyclomaticComplexity.__conditions:
+            if str(x[1]) in MetricBaseCyclomaticComplexity.__conditions:
                 self.__conditions += 1
 
     def get_results(self):
-        self._metrics["cyclomatic_complexity"] = max(
+        self._metrics[MetricBaseCyclomaticComplexity.METRIC_CYCLOMATIC_COMPLEXITY] = max(
             self.__conditions - self.__exitpoints + 2, 0)
         return self._metrics

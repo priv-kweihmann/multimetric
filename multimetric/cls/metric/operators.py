@@ -1,9 +1,7 @@
-from multimetric.cls.metric import BaseMetric
-
-# TODO
+from multimetric.cls.base import MetricBase
 
 
-class OperatorMetric(BaseMetric):
+class MetricBaseOperator(MetricBase):
     _needles = [
         "Token.Name.Class",
         "Token.Name.Decorator",
@@ -20,6 +18,9 @@ class OperatorMetric(BaseMetric):
         "Token.String.Delimiter",
     ]
 
+    METRIC_OPERATORS_SUM = "operators_sum"
+    METRIC_OPERATORS_UNIQUE = "operators_uniq"
+
     def __init__(self, args):
         super().__init__(args)
         self.__operator = []
@@ -27,10 +28,10 @@ class OperatorMetric(BaseMetric):
     def parse_tokens(self, language, tokens):
         super().parse_tokens(language, [])
         for x in tokens:
-            if str(x[0]) in OperatorMetric._needles:
+            if str(x[0]) in MetricBaseOperator._needles:
                 self.__operator.append(str(x[1]))
 
     def get_results(self):
-        self._metrics["operators_sum"] = len(self.__operator)
-        self._metrics["operators_uniq"] = len(list(set(self.__operator)))
+        self._metrics[MetricBaseOperator.METRIC_OPERATORS_SUM] = len(self.__operator)
+        self._metrics[MetricBaseOperator.METRIC_OPERATORS_UNIQUE] = len(list(set(self.__operator)))
         return self._metrics

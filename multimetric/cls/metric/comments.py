@@ -1,7 +1,7 @@
-from multimetric.cls.metric import BaseMetric
+from multimetric.cls.base import MetricBase
 
 
-class CommentsMetric(BaseMetric):
+class MetricBaseComments(MetricBase):
     _needles = [
         "Token.Comment",
         "Token.Comment.Hashbang",
@@ -12,6 +12,8 @@ class CommentsMetric(BaseMetric):
         "Token.Literal.String.Doc"
     ]
 
+    METRIC_COMMENT_RATIO = "comment_ratio"
+
     def __init__(self, args):
         super().__init__(args)
         self.__overall = 0
@@ -21,13 +23,13 @@ class CommentsMetric(BaseMetric):
         super().parse_tokens(language, [])
         for x in tokens:
             self.__overall += len(str(x[1]))
-            if str(x[0]) in CommentsMetric._needles:
+            if str(x[0]) in MetricBaseComments._needles:
                 self.__comments += len(str(x[0]))
 
     def get_results(self):
         if self.__overall == 0:
             # sanity
             self.__overall = 1
-        self._metrics["comment_ratio"] = self.__comments * \
+        self._metrics[MetricBaseComments.METRIC_COMMENT_RATIO] = self.__comments * \
             100.0 / float(self.__overall)
         return self._metrics

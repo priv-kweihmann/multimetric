@@ -1,8 +1,10 @@
-from multimetric.cls.metric import CalcMetric
+from multimetric.cls.base_calc import MetricBaseCalc
+from multimetric.cls.metric.operands import MetricBaseOperands
+from multimetric.cls.metric.operators import MetricBaseOperator
 import math
 
 
-class Halstead(CalcMetric):
+class MetricBaseCalcHalstead(MetricBaseCalc):
 
     BUGPRED_METHOD = {
         "old": "(self._effort * (2.0 / 3.0)) / 3000.0",
@@ -11,18 +13,24 @@ class Halstead(CalcMetric):
 
     BUGPRED_DEFAULT = "new"
 
+    METRIC_HALSTEAD_VOLUME = "halstead_volume"
+    METRIC_HALSTEAD_EFFORT = "halstead_effort"
+    METRIC_HALSTEAD_DIFFICULTY = "halstead_difficulty"
+    METRIC_HALSTEAD_BUGS = "halstead_bugprop"
+    METRIC_HALSTEAD_TIMEREQ = "halstead_timerequired"
+
     def __init__(self, args):
         super().__init__(args)
         try:
             self.__bugPredicMethod = args.halstead_bug_predict_method
         except AttributeError:
-            self.__bugPredicMethod = Halstead.BUGPRED_DEFAULT
+            self.__bugPredicMethod = MetricBaseCalcHalstead.BUGPRED_DEFAULT
 
     def _getNs(self, metrics):
-        self._N2 = float(metrics["operands_sum"])
-        self._N1 = float(metrics["operators_sum"])
-        self._n2 = float(metrics["operands_uniq"])
-        self._n1 = float(metrics["operators_uniq"])
+        self._N2 = float(metrics[MetricBaseOperands.METRIC_OPERANDS_SUM])
+        self._N1 = float(metrics[MetricBaseOperator.METRIC_OPERATORS_SUM])
+        self._n2 = float(metrics[MetricBaseOperands.METRIC_OPERANDS_UNIQUE])
+        self._n1 = float(metrics[MetricBaseOperator.METRIC_OPERATORS_UNIQUE])
         # to avoid any Divbyzero bugs set the minimum to 1
         self._n1 = max(self._n1, 1)
         self._n2 = max(self._n2, 1)
@@ -67,13 +75,13 @@ class Halstead(CalcMetric):
 
     def _getBug(self, metrics):
         self._getEffort(metrics)
-        self._bug = eval(Halstead.BUGPRED_METHOD[self.__bugPredicMethod])
+        self._bug = eval(MetricBaseCalcHalstead.BUGPRED_METHOD[self.__bugPredicMethod])
         return self._bug
 
     def get_results(self, metrics):
-        metrics["halstead_volume"] = self._getVolume(metrics)
-        metrics["halstead_difficulty"] = self._getDifficulty(metrics)
-        metrics["halstead_effort"] = self._getEffort(metrics)
-        metrics["halstead_timerequired"] = self._getTime(metrics)
-        metrics["halstead_bugprop"] = self._getBug(metrics)
+        metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_VOLUME] = self._getVolume(metrics)
+        metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_DIFFICULTY] = self._getDifficulty(metrics)
+        metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_EFFORT] = self._getEffort(metrics)
+        metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_TIMEREQ] = self._getTime(metrics)
+        metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_BUGS] = self._getBug(metrics)
         return super().get_results(metrics)

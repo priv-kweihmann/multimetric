@@ -1,9 +1,9 @@
 import statistics
 
-from multimetric.cls.metric import AverageMetric
+from multimetric.cls.base_stats import MetricBaseStats
 
 
-class Average(AverageMetric):
+class MetricBaseStatsAverage(MetricBaseStats):
 
     def __init__(self, args):
         super().__init__(args)

@@ -1,7 +1,7 @@
-from multimetric.cls.metric import BaseMetric
+from multimetric.cls.base import MetricBase
 
 
-class Fanout(BaseMetric):
+class MetricBaseFanout(MetricBase):
     _needles = {
         "Python": [
             "Token.Name.Namespace"
@@ -23,6 +23,9 @@ class Fanout(BaseMetric):
         "C++": {"start": "\"", "end": "\""}
     }
 
+    METRIC_FANOUT_INTERNAL = "fanout_internal"
+    METRIC_FANOUT_EXTERNAL = "fanout_external"
+
     def __init__(self, args):
         super().__init__(args)
         self._int = set()
@@ -30,13 +33,17 @@ class Fanout(BaseMetric):
 
     def __isInternal(self, value, internal_mapping):
         return all([value.startswith(internal_mapping["start"]),
-                   value.endswith(internal_mapping["end"])])
+                    value.endswith(internal_mapping["end"])])
 
     def _parsePHP(self, iterator):
         res = []
+        _start_token = ["include", "require", "include_once", "require_once"]
+        _cont_token = ["Token.Literal.String.Single", "Token.Literal.String.Double"]
         for i, val in iterator:
-            if str(val[0]) in ["Token.Keyword"] and val[1] in ["include", "require", "include_once", "require_once"]:
-                while iterator and str(val[0]) not in ["Token.Literal.String.Single", "Token.Literal.String.Double"]:
+            if str(val[0]) in ["Token.Keyword"] and \
+               val[1] in _start_token:
+                while iterator and \
+                      str(val[0]) not in _cont_token:
                     i, val = next(iterator)
                 if iterator:
                     res.append(val[1].strip("'").strip('"'))
@@ -56,18 +63,18 @@ class Fanout(BaseMetric):
 
     def parse_tokens(self, language, tokens):
         super().parse_tokens(language, [])
-        if language in Fanout._internal:
-            _i = Fanout._internal[language]
+        if language in MetricBaseFanout._internal:
+            _i = MetricBaseFanout._internal[language]
         else:
             _i = {"start": "", "end": ""}
         _imports = []
-        if language in Fanout._needles.keys():
-            _n = Fanout._needles[language]
+        if language in MetricBaseFanout._needles.keys():
+            _n = MetricBaseFanout._needles[language]
             for x in [x for x in tokens if str(x[0]) in _n]:
                 _imports.append(x[1])
-        elif language in Fanout._functions:
+        elif language in MetricBaseFanout._functions:
             _imports = getattr(self,
-                               Fanout._functions[language])(enumerate(tokens))
+                               MetricBaseFanout._functions[language])(enumerate(tokens))
         # else:
         #     # Language isn't supported at the moment
         #     for x in tokens:
@@ -77,5 +84,5 @@ class Fanout(BaseMetric):
                 self._int.add(str(x))
             else:
                 self._ext.add(str(x))
-        self._metrics.update({"fanout_internal": len(list(self._int)),
-                              "fanout_external": len(list(self._ext))})
+        self._metrics.update({MetricBaseFanout.METRIC_FANOUT_INTERNAL: len(list(self._int)),
+                              MetricBaseFanout.METRIC_FANOUT_EXTERNAL: len(list(self._ext))})

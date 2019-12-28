@@ -1,9 +1,9 @@
-from multimetric.cls.metric import CalcMetric
+from multimetric.cls.base_calc import MetricBaseCalc
 
 import math  # noqa: F401
 
 
-class MaintenanceIndex(CalcMetric):
+class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
     MI_METHOD = {
         "sei": '171.0 \
@@ -24,19 +24,21 @@ class MaintenanceIndex(CalcMetric):
 
     MI_DEFAULT = "classic"
 
+    METRIC_MAINTAINABILITY_INDEX = "maintainability_index"
+
     def __init__(self, args):
         super().__init__(args)
         try:
             self.__miMethod = args.maintenance_index_calc_method
         except AttributeError:
-            self.__miMethod = MaintenanceIndex.MI_DEFAULT
+            self.__miMethod = MetricBaseCalcMaintenanceIndex.MI_DEFAULT
 
     def get_results(self, metrics):
-        metrics["maintainability_index"] = eval(
-            MaintenanceIndex.MI_METHOD[self.__miMethod])
+        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = eval(
+            MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod])
         # Sanity
-        metrics["maintainability_index"] = max(
-            metrics["maintainability_index"], 0)
-        metrics["maintainability_index"] = min(
-            metrics["maintainability_index"], 100)
+        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = max(
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0)
+        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = min(
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 100)
         return super().get_results(metrics)
