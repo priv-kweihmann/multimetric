@@ -7,6 +7,7 @@ from multimetric.cls.metric.loc import MetricBaseLOC
 from multimetric.cls.metric.operands import MetricBaseOperands
 from multimetric.cls.metric.operators import MetricBaseOperator
 from multimetric.cls.stats.stats import MetricBaseStatsAverage
+from multimetric.cls.calc.tiobe import MetricBaseCalcTIOBE
 
 
 def get_modules_metrics(args):
@@ -23,7 +24,8 @@ def get_modules_metrics(args):
 def get_modules_calculated(args):
     return [
         MetricBaseCalcHalstead(args),
-        MetricBaseCalcMaintenanceIndex(args)
+        MetricBaseCalcMaintenanceIndex(args),
+        MetricBaseCalcTIOBE(args)
     ]
 
 

@@ -14,13 +14,15 @@ This tool tries to calculate the following metrics for many, many programming la
 
 * Comment to Code percentage
 * Cyclomatic complexity according to McCabe
-* Number of delivered bugs according to Halstead
-* Time required to program according to Halstead
 * Difficulty according to Halstead
-* Volume according to Halstead
 * Effort according to Halstead
+* Fan-Out
 * Lines of code
 * Maintainability index
+* Metric according to TIOBE
+* Number of delivered bugs according to Halstead
+* Time required to program according to Halstead
+* Volume according to Halstead
 
 This tool was heavily inspired by [metrics](https://github.com/markfink/metrics)
 
@@ -80,22 +82,33 @@ Output will be written to stdout as json.
 
 #### Item structure
 
-* `comment_ratio` = Comment to Code percentage
-* `cyclomatic_complexity` = Cyclomatic complexity according to McCabe
-* `fanout_external` = Number imports from out of tree modules
-* `fanout_internal` = Number imports from same source tree modules
-* `halstead_bugprop` = Number of delivered bugs according to Halstead
-* `halstead_difficulty` = Difficulty according to Halstead
-* `halstead_effort` = Effort according to Halstead
-* `halstead_timerequired` = Time required to program according to Halstead
-* `halstead_volume` = Volume according to Halstead
-* `lang` = list of idendified programming languages
-* `loc` = Lines of code
-* `maintainability_index` = Maintainability index
-* `operands_sum` = Number of used operands
-* `operands_uniq` = Number of unique used operands
-* `operators_sum` = Number of used operators
-* `operators_uniq` = Number of unique used operators
+| item                    | description                                    | range    | recommendation |
+|-------------------------|------------------------------------------------|----------|----------------|
+| `comment_ratio`         | Comment to Code percentage                     | 0..100   | > 30.0         |
+| `cyclomatic_complexity` | Cyclomatic complexity according to McCabe      | 0..(inf) | < 10           |
+| `fanout_external`       | Number imports from out of tree modules        | 0..(inf) |                |
+| `fanout_internal`       | Number imports from same source tree modules   | 0..(inf) |                |
+| `halstead_bugprop`      | Number of delivered bugs according to Halstead | 0..(inf) | < 0.05         |
+| `halstead_difficulty`   | Difficulty according to Halstead               | 0..(inf) |                |
+| `halstead_effort`       | Effort according to Halstead                   | 0..(inf) |                |
+| `halstead_timerequired` | Time required to program according to Halstead | 0..(inf) |                |
+| `halstead_volume`       | Volume according to Halstead                   | 0..(inf) |                |
+| `lang`                  | list of identified programming languages       | list     |                |
+| `loc`                   | Lines of code                                  | 1..(inf) |                |
+| `maintainability_index` | Maintainability index                          | 0..100   | > 80.0         |
+| `operands_sum`          | Number of used operands                        | 1..(inf) |                |
+| `operands_uniq`         | Number of unique used operands                 | 1..(inf) |                |
+| `operators_sum`         | Number of used operators                       | 1..(inf) |                |
+| `operators_uniq`        | Number of unique used operators                | 1..(inf) |                |
+| `tiobe_compiler`        | Compiler warnings score according to TIOBE     | 0..100   | > 90.0         |
+| `tiobe_complexity`      | Complexity according to TIOBE                  | 0..100   | > 80.0         |
+| `tiobe_coverage`        | Coverage according to TIOBE                    | 0..100   | > 80.0         |
+| `tiobe_duplication`     | Code duplications score according to TIOBE     | 0..100   | > 80.0         |
+| `tiobe_fanout`          | Fan-Out score according to TIOBE               | 0..100   | > 80.0         |
+| `tiobe_functional`      | Functional defect score according to TIOBE     | 0..100   | > 90.0         |
+| `tiobe_security`        | Security score according to TIOBE              | 0..100   | > 90.0         |
+| `tiobe_standard`        | Language standard score according to TIOBE     | 0..100   | > 80.0         |
+| `tiobe`                 | General quality score according to TIOBE       | 0..100   | > 80.0         |
 
 #### Statistics
 
