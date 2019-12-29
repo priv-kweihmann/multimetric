@@ -1,5 +1,7 @@
 from multimetric.cls.calc.halstead import MetricBaseCalcHalstead
 from multimetric.cls.calc.maintenance import MetricBaseCalcMaintenanceIndex
+from multimetric.cls.calc.pylint import MetricBaseCalcPylint
+from multimetric.cls.calc.tiobe import MetricBaseCalcTIOBE
 from multimetric.cls.metric.comments import MetricBaseComments
 from multimetric.cls.metric.cyclomatic import MetricBaseCyclomaticComplexity
 from multimetric.cls.metric.fanout import MetricBaseFanout
@@ -7,7 +9,6 @@ from multimetric.cls.metric.loc import MetricBaseLOC
 from multimetric.cls.metric.operands import MetricBaseOperands
 from multimetric.cls.metric.operators import MetricBaseOperator
 from multimetric.cls.stats.stats import MetricBaseStatsAverage
-from multimetric.cls.calc.tiobe import MetricBaseCalcTIOBE
 
 
 def get_modules_metrics(args, **kwargs):
@@ -25,7 +26,8 @@ def get_modules_calculated(args, **kwargs):
     return [
         MetricBaseCalcHalstead(args, **kwargs),
         MetricBaseCalcMaintenanceIndex(args, **kwargs),
-        MetricBaseCalcTIOBE(args, **kwargs)
+        MetricBaseCalcTIOBE(args, **kwargs),
+        MetricBaseCalcPylint(args, **kwargs)
     ]
 
 
