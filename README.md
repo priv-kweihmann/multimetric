@@ -19,6 +19,7 @@ This tool tries to calculate the following metrics for many, many programming la
 * Fan-Out
 * Lines of code
 * Maintainability index
+* Metric according to pylint
 * Metric according to TIOBE
 * Number of delivered bugs according to Halstead
 * Time required to program according to Halstead
@@ -29,6 +30,7 @@ This tool was heavily inspired by [metrics](https://github.com/markfink/metrics)
 ## Requirements
 
 * python3
+* [chardet](https://pypi.org/project/chardet/)
 * [Pygments](http://pygments.org/)
 
 ## Installation
@@ -43,15 +45,20 @@ pip3 install multimetric
 
 ### From source
 
-* Install the needed requirements by running ```pip3 install pygments```
 * git clone this repository
 * cd to \<clone folder\>
+* Install the needed requirements by running ```pip3 install -r requirements.txt```
 * run `python3 setup.py build`
 
 ## Usage
 
 ```shell
-usage: multimetric [-h] [--bugpredict {old,new}]
+usage: multimetric [-h] [--warn_compiler WARN_COMPILER]
+                   [--warn_duplication WARN_DUPLICATION]
+                   [--warn_functional WARN_FUNCTIONAL]
+                   [--warn_standard WARN_STANDARD]
+                   [--warn_security WARN_SECURITY] [--coverage COVERAGE]
+                   [--bugpredict {old,new}]
                    [--maintindex {sei,classic,microsoft}]
                    files [files ...]
 
@@ -62,10 +69,43 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
+  --warn_compiler WARN_COMPILER
+                        File(s) holding information about compiler warnings
+  --warn_duplication WARN_DUPLICATION
+                        File(s) holding information about code duplications
+  --warn_functional WARN_FUNCTIONAL
+                        File(s) holding information about static code analysis findings
+  --warn_standard WARN_STANDARD
+                        File(s) holding information about language standard violations
+  --warn_security WARN_SECURITY
+                        File(s) File(s) holding information about found security issue
+  --coverage COVERAGE   File(s) with compiler warningsFile(s) holding information about testing coverage
   --bugpredict {old,new}
                         Method how to calculate the bug prediction
   --maintindex {sei,classic,microsoft}
                         Method how to calculate the maintainability index
+
+Currently you could import files of the following types for --warn_* or --coverage
+
+Following information can be read
+
+    <file> = full path to file
+    <content> = either a string
+    <severity> = optional severity
+
+    Note: you could also add a single line, then <content>
+        has to be a number reflecting to total number of findings
+
+File formats
+
+csv: CSV file of following line format
+     <file>,<content>,<severity>
+
+json: JSON file
+     <file>: {
+         "content": <content>,
+         "severity": <severity>
+     }
 ```
 
 By default tool guesses the content type by the filename, if that doesn't work for you please see below
@@ -100,6 +140,7 @@ Output will be written to stdout as json.
 | `operands_uniq`         | Number of unique used operands                 | 1..(inf) |                |
 | `operators_sum`         | Number of used operators                       | 1..(inf) |                |
 | `operators_uniq`        | Number of unique used operators                | 1..(inf) |                |
+| `pylint`                | General quality score according to pylint      | 0..100   | > 80.0         |
 | `tiobe_compiler`        | Compiler warnings score according to TIOBE     | 0..100   | > 90.0         |
 | `tiobe_complexity`      | Complexity according to TIOBE                  | 0..100   | > 80.0         |
 | `tiobe_coverage`        | Coverage according to TIOBE                    | 0..100   | > 80.0         |

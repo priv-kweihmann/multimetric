@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import textwrap
 
 import chardet
 from pygments import lexers
@@ -15,7 +16,31 @@ from multimetric.cls.modules import get_modules_stats
 
 def ArgParser():
     parser = argparse.ArgumentParser(
-        prog="multimetric", description='Calculate code metrics in various languages')
+        formatter_class=argparse.RawTextHelpFormatter,
+        prog="multimetric", description='Calculate code metrics in various languages',
+        epilog=textwrap.dedent("""
+        Currently you could import files of the following types for --warn_* or --coverage
+
+        Following information can be read
+
+            <file> = full path to file
+            <content> = either a string
+            <severity> = optional severity
+
+            Note: you could also add a single line, then <content>
+                has to be a number reflecting to total number of findings
+
+        File formats
+
+        csv: CSV file of following line format
+             <file>,<content>,<severity>
+
+        json: JSON file
+             <file>: {
+                 "content": <content>,
+                 "severity": <severity>
+             }
+        """))
     parser.add_argument(
         "--warn_compiler",
         help="File(s) holding information about compiler warnings")
@@ -50,8 +75,10 @@ if __name__ == '__main__':
     _importer = {}
     _importer["import_compiler"] = importer_pick(_args, _args.warn_compiler)
     _importer["import_coverage"] = importer_pick(_args, _args.coverage)
-    _importer["import_duplication"] = importer_pick(_args, _args.warn_duplication)
-    _importer["import_functional"] = importer_pick(_args, _args.warn_functional)
+    _importer["import_duplication"] = importer_pick(
+        _args, _args.warn_duplication)
+    _importer["import_functional"] = importer_pick(
+        _args, _args.warn_functional)
     _importer["import_security"] = importer_pick(_args, _args.warn_standard)
     _importer["import_standard"] = importer_pick(_args, _args.warn_security)
 
