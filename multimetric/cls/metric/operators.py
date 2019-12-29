@@ -21,8 +21,8 @@ class MetricBaseOperator(MetricBase):
     METRIC_OPERATORS_SUM = "operators_sum"
     METRIC_OPERATORS_UNIQUE = "operators_uniq"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         self.__operator = []
 
     def parse_tokens(self, language, tokens):

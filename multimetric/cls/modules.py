@@ -10,28 +10,28 @@ from multimetric.cls.stats.stats import MetricBaseStatsAverage
 from multimetric.cls.calc.tiobe import MetricBaseCalcTIOBE
 
 
-def get_modules_metrics(args):
+def get_modules_metrics(args, **kwargs):
     return [
-        MetricBaseComments(args),
-        MetricBaseCyclomaticComplexity(args),
-        MetricBaseFanout(args),
-        MetricBaseLOC(args),
-        MetricBaseOperands(args),
-        MetricBaseOperator(args),
+        MetricBaseComments(args, **kwargs),
+        MetricBaseCyclomaticComplexity(args, **kwargs),
+        MetricBaseFanout(args, **kwargs),
+        MetricBaseLOC(args, **kwargs),
+        MetricBaseOperands(args, **kwargs),
+        MetricBaseOperator(args, **kwargs),
     ]
 
 
-def get_modules_calculated(args):
+def get_modules_calculated(args, **kwargs):
     return [
-        MetricBaseCalcHalstead(args),
-        MetricBaseCalcMaintenanceIndex(args),
-        MetricBaseCalcTIOBE(args)
+        MetricBaseCalcHalstead(args, **kwargs),
+        MetricBaseCalcMaintenanceIndex(args, **kwargs),
+        MetricBaseCalcTIOBE(args, **kwargs)
     ]
 
 
-def get_modules_stats(args):
+def get_modules_stats(args, **kwargs):
     return [
-        MetricBaseStatsAverage(args)
+        MetricBaseStatsAverage(args, **kwargs)
     ]
 
 

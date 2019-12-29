@@ -5,8 +5,8 @@ from multimetric.cls.base_stats import MetricBaseStats
 
 class MetricBaseStatsAverage(MetricBaseStats):
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
 
     def _getInputList(self, metrics, key):
         res = []

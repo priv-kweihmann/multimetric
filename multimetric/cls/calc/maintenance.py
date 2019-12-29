@@ -26,8 +26,8 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
     METRIC_MAINTAINABILITY_INDEX = "maintainability_index"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         try:
             self.__miMethod = args.maintenance_index_calc_method
         except AttributeError:

@@ -28,8 +28,8 @@ class MetricBaseCyclomaticComplexity(MetricBase):
 
     METRIC_CYCLOMATIC_COMPLEXITY = "cyclomatic_complexity"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         self.__conditions = 0
         self.__exitpoints = 0
 

@@ -12,8 +12,8 @@ class MetricBaseLOC(MetricBase):
 
     METRIC_LOC = "loc"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
 
     def parse_tokens(self, language, tokens):
         super().parse_tokens(language, [])

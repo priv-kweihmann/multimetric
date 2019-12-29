@@ -18,14 +18,16 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
     METRIC_TIOBE_SECURITY = "tiobe_security"
     METRIC_TIOBE = "tiobe"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
+        self.__addArgs = kwargs
 
     def __getScaledValue(self, metrics, value):
         return 100.0 / ((value) / (metrics[MetricBaseLOC.METRIC_LOC] / 1000.0) + 1.0)
 
-    def __getFromImporter(self, section, importer, _default=0.0):
-        # TODO
+    def __getFromImporter(self, section, _default=0.0):
+        if "import_{}".format(section) in self.__addArgs:
+            return self.__addArgs["import_{}".format(section)].getSumItems()
         return _default
 
     def __getTiobeComplexity(self, metrics):
@@ -38,26 +40,29 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
         return float(min(max(120.0 - ((8.0 * _int) + (2.0 * _ext)), 0.0), 100.0))
 
     def __getTiobeCoverage(self, metrics):
-        _per = self.__getFromImporter("coverage", None, _default=100.0)
-        return min(0.75 * _per + 32.5, 100.0)
+        _per = self.__getFromImporter("coverage", _default=100.0)
+        if _per < 1.0:
+            # No coverage
+            return 0.0
+        return min(((0.75 * _per) + 32.5), 100.0)
 
     def __getTiobeStandard(self, metrics):
-        return self.__getScaledValue(metrics, self.__getFromImporter("standard", None))
+        return self.__getScaledValue(metrics, self.__getFromImporter("standard"))
 
     def __getTiobeSecurity(self, metrics):
-        return self.__getScaledValue(metrics, self.__getFromImporter("security", None))
+        return self.__getScaledValue(metrics, self.__getFromImporter("security"))
 
     def __getTiobeDuplication(self, metrics):
-        return min(-30.0 * math.log10(self.__getFromImporter("duplication", None) or 0.00001) +
+        return min(-30.0 * math.log10(self.__getFromImporter("duplication") or 0.00001) +
                    70.0, 100.0)
 
     def __getTiobeCompiler(self, metrics):
-        _violations = self.__getScaledValue(metrics, self.__getFromImporter("compiler", None))
+        _violations = self.__getScaledValue(metrics, self.__getFromImporter("compiler"))
         return max(100.0 - 50.0 *
                    math.log((101 - _violations) or 0.00001), 0.0)
 
     def __getTiobeFunctional(self, metrics):
-        _violations = self.__getFromImporter("functional", None)
+        _violations = self.__getFromImporter("functional")
         return max(self.__getScaledValue(metrics, _violations) * 2.0 - 100.0, 0.0)
 
     def __getTiobe(self, metrics):

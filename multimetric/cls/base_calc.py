@@ -1,6 +1,6 @@
 class MetricBaseCalc():
 
-    def __init__(self, args):
+    def __init__(self, args, **kwargs):
         self._metrics = {}
 
     def get_results(self, metrics):

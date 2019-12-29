@@ -19,8 +19,8 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
     METRIC_HALSTEAD_BUGS = "halstead_bugprop"
     METRIC_HALSTEAD_TIMEREQ = "halstead_timerequired"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         try:
             self.__bugPredicMethod = args.halstead_bug_predict_method
         except AttributeError:

@@ -45,8 +45,8 @@ class MetricBaseOperands(MetricBase):
     METRIC_OPERANDS_SUM = "operands_sum"
     METRIC_OPERANDS_UNIQUE = "operands_uniq"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         self.__operands = []
 
     def parse_tokens(self, language, tokens):

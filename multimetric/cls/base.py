@@ -1,5 +1,5 @@
 class MetricBase():
-    def __init__(self, args):
+    def __init__(self, args, **kwargs):
         self._metrics = {"lang": []}
 
     def parse_tokens(self, language, tokens):

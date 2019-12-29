@@ -26,8 +26,8 @@ class MetricBaseFanout(MetricBase):
     METRIC_FANOUT_INTERNAL = "fanout_internal"
     METRIC_FANOUT_EXTERNAL = "fanout_external"
 
-    def __init__(self, args):
-        super().__init__(args)
+    def __init__(self, args, **kwargs):
+        super().__init__(args, **kwargs)
         self._int = set()
         self._ext = set()
 
