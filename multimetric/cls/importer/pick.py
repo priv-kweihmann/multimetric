@@ -8,7 +8,7 @@ from multimetric.cls.importer.mods.json import ImporterJSON
 
 def importer_pick(args, filearg):
     if not filearg:
-        return Importer(args, None)
+        return None
     _file, _ext = os.path.splitext(filearg)
     if _ext in [".csv"]:
         return ImporterCSV(args, filearg)

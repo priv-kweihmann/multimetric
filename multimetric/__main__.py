@@ -44,21 +44,27 @@ def ArgParser():
         """))
     parser.add_argument(
         "--warn_compiler",
+        default=None,
         help="File(s) holding information about compiler warnings")
     parser.add_argument(
         "--warn_duplication",
+        default=None,
         help="File(s) holding information about code duplications")
     parser.add_argument(
         "--warn_functional",
+        default=None,
         help="File(s) holding information about static code analysis findings")
     parser.add_argument(
         "--warn_standard",
+        default=None,
         help="File(s) holding information about language standard violations")
     parser.add_argument(
         "--warn_security",
+        default=None,
         help="File(s) File(s) holding information about found security issue")
     parser.add_argument(
         "--coverage",
+        default=None,
         help="File(s) with compiler warningsFile(s) holding information about testing coverage")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
@@ -82,6 +88,8 @@ if __name__ == '__main__':
         _args, _args.warn_functional)
     _importer["import_security"] = importer_pick(_args, _args.warn_standard)
     _importer["import_standard"] = importer_pick(_args, _args.warn_security)
+    # sanity check
+    _importer = {k: v for k, v in _importer.items() if v}
 
     # instance metric modules
     _overallMetrics = get_modules_metrics(_args, **_importer)
