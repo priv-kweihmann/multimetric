@@ -1,0 +1,32 @@
+#!/bin/bash
+TESTFILE="/tmp/testfile.js"
+trap "rm -f ${TESTFILE}" EXIT
+cat > ${TESTFILE} << EOF
+function one(){
+  console.log('a');
+  return {
+    get p() {
+      console.log('e');
+      return {
+        valueOf: function(){
+          console.log('g');
+          return {};
+        },
+        toString: function(){
+          console.log('h');
+          return false;
+        }
+      };
+    },
+    set p(x) {
+      console.log('k');
+    }
+  };
+}
+EOF
+
+pretty_out=$(multimetric "${TESTFILE}" 2>/dev/null | jq -S . -)
+diff -yq <(echo "${pretty_out}") <(jq -S . "${0}".cmp) && exit 0
+echo "Test for ${0} failed: tool output at ${0}.tool"
+echo "${pretty_out}" > ${0}.tool
+exit 1
