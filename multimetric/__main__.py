@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import textwrap
+import sys
 
 import chardet
 from pygments import lexers
