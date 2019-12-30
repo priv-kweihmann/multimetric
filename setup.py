@@ -4,10 +4,10 @@ import setuptools
 _long_description = "See https://github.com/priv-kweihmann/multimetric for documentation"
 _long_description_content_type = "text/plain"
 try:
-    _long_description = subprocess.check_output(
-        ["pandoc", "--from", "markdown", "--to", "rst", "README.md"]).decode("utf-8")
-    _long_description_content_type = "text/x-rst"
-except (subprocess.CalledProcessError, FileNotFoundError):
+    with open("README.md") as i:
+        _long_description = i.read()
+        _long_description_content_type = "text/markdown"
+except Exception:
     pass
 
 requirements = []
@@ -16,7 +16,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="multimetric",
-    version="1.0.5",
+    version="1.1.0",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Calculate code metrics in various languages",
