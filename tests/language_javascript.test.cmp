@@ -1,6 +1,6 @@
 {
   "files": {
-    "/tmp/testfile.js": {
+    "/build/multimetric/testfiles/test.js": {
       "comment_ratio": 0,
       "cyclomatic_complexity": 0,
       "fanout_external": 0,
@@ -13,8 +13,8 @@
       "lang": [
         "JavaScript"
       ],
-      "loc": 3,
-      "maintainability_index": 100,
+      "loc": 22,
+      "maintainability_index": 91.36524132085827,
       "operands_sum": 18,
       "operands_uniq": 9,
       "operators_sum": 54,
@@ -44,8 +44,8 @@
     "lang": [
       "JavaScript"
     ],
-    "loc": 3,
-    "maintainability_index": 100,
+    "loc": 22,
+    "maintainability_index": 91.36524132085827,
     "operands_sum": 18,
     "operands_uniq": 9,
     "operators_sum": 54,
@@ -72,8 +72,8 @@
       "halstead_effort": 2354.3785965601955,
       "halstead_timerequired": 130.79881092001085,
       "halstead_volume": 294.29732457002444,
-      "loc": 3,
-      "maintainability_index": 100,
+      "loc": 22,
+      "maintainability_index": 91.36524132085827,
       "operands_sum": 18,
       "operands_uniq": 9,
       "operators_sum": 54,
@@ -99,8 +99,8 @@
       "halstead_effort": 2354.3785965601955,
       "halstead_timerequired": 130.79881092001085,
       "halstead_volume": 294.29732457002444,
-      "loc": 3,
-      "maintainability_index": 100,
+      "loc": 22,
+      "maintainability_index": 91.36524132085827,
       "operands_sum": 18,
       "operands_uniq": 9,
       "operators_sum": 54,
@@ -126,8 +126,8 @@
       "halstead_effort": 2354.3785965601955,
       "halstead_timerequired": 130.79881092001085,
       "halstead_volume": 294.29732457002444,
-      "loc": 3,
-      "maintainability_index": 100,
+      "loc": 22,
+      "maintainability_index": 91.36524132085827,
       "operands_sum": 18,
       "operands_uniq": 9,
       "operators_sum": 54,
@@ -153,8 +153,8 @@
       "halstead_effort": 2354.3785965601955,
       "halstead_timerequired": 130.79881092001085,
       "halstead_volume": 294.29732457002444,
-      "loc": 3,
-      "maintainability_index": 100,
+      "loc": 22,
+      "maintainability_index": 91.36524132085827,
       "operands_sum": 18,
       "operands_uniq": 9,
       "operators_sum": 54,

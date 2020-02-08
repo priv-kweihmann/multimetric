@@ -1,6 +1,6 @@
 {
   "files": {
-    "/tmp/testfile.go": {
+    "/build/multimetric/testfiles/test.go": {
       "comment_ratio": 25.210084033613445,
       "cyclomatic_complexity": 0,
       "fanout_external": 0,
@@ -13,8 +13,8 @@
       "lang": [
         "Go"
       ],
-      "loc": 68,
-      "maintainability_index": 64.06686096616953,
+      "loc": 67,
+      "maintainability_index": 64.30686535588882,
       "operands_sum": 130,
       "operands_uniq": 41,
       "operators_sum": 161,
@@ -44,8 +44,8 @@
     "lang": [
       "Go"
     ],
-    "loc": 68,
-    "maintainability_index": 64.06686096616953,
+    "loc": 67,
+    "maintainability_index": 64.30686535588882,
     "operands_sum": 130,
     "operands_uniq": 41,
     "operators_sum": 161,
@@ -72,8 +72,8 @@
       "halstead_effort": 31710.32645796963,
       "halstead_timerequired": 1761.684803220535,
       "halstead_volume": 1666.8248522778908,
-      "loc": 68,
-      "maintainability_index": 64.06686096616953,
+      "loc": 67,
+      "maintainability_index": 64.30686535588882,
       "operands_sum": 130,
       "operands_uniq": 41,
       "operators_sum": 161,
@@ -99,8 +99,8 @@
       "halstead_effort": 31710.32645796963,
       "halstead_timerequired": 1761.684803220535,
       "halstead_volume": 1666.8248522778908,
-      "loc": 68,
-      "maintainability_index": 64.06686096616953,
+      "loc": 67,
+      "maintainability_index": 64.30686535588882,
       "operands_sum": 130,
       "operands_uniq": 41,
       "operators_sum": 161,
@@ -126,8 +126,8 @@
       "halstead_effort": 31710.32645796963,
       "halstead_timerequired": 1761.684803220535,
       "halstead_volume": 1666.8248522778908,
-      "loc": 68,
-      "maintainability_index": 64.06686096616953,
+      "loc": 67,
+      "maintainability_index": 64.30686535588882,
       "operands_sum": 130,
       "operands_uniq": 41,
       "operators_sum": 161,
@@ -153,8 +153,8 @@
       "halstead_effort": 31710.32645796963,
       "halstead_timerequired": 1761.684803220535,
       "halstead_volume": 1666.8248522778908,
-      "loc": 68,
-      "maintainability_index": 64.06686096616953,
+      "loc": 67,
+      "maintainability_index": 64.30686535588882,
       "operands_sum": 130,
       "operands_uniq": 41,
       "operators_sum": 161,

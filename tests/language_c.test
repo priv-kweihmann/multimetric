@@ -1,34 +1,5 @@
 #!/bin/bash
-TESTFILE="/tmp/testfile.c"
-trap "rm -f ${TESTFILE}" EXIT
-cat > ${TESTFILE} << EOF
-#include <stdio.h>
-#include <string.h>
-
-static char a[10] = "";
-
-static char* foo(char *input) {
-	strcpy(a, input);
-	return a;
-}
-
-int main()
-{
-	printf("Hello World\n");
-	char *a[10] = {};
-	char *b[10] = {};
-	char c[250] = "";
-	memcpy(&a, &a, sizeof(a) + 10);
-	//memcpy(&b, &a, sizeof(a));
-	//memset(&c, 'a', 255);
-	if (c[-1] == 0) return 1;
-	return 0;
-
-	if (c[-1] == 0) return 1;
-	foo(c);
-}
-EOF
-
+TESTFILE="$(pwd)/testfiles/test.c"
 pretty_out=$(multimetric "${TESTFILE}" 2>/dev/null | jq -S . -)
 diff -yq <(echo "${pretty_out}") <(jq -S . "${0}".cmp) && exit 0
 echo "Test for ${0} failed: tool output at ${0}.tool"
