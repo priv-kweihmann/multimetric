@@ -15,7 +15,8 @@ class MetricBaseFanout(MetricBase):
     }
     _functions = {
         "PHP": "_parsePHP",
-        "Go": "_parseGo"
+        "Go": "_parseGo",
+        "Ruby": "_parseRuby"
     }
     _internal = {
         "Python": {"start": ".", "end": ""},
@@ -47,6 +48,20 @@ class MetricBaseFanout(MetricBase):
                     i, val = next(iterator)
                 if iterator:
                     res.append(val[1].strip("'").strip('"'))
+        return res
+
+    def _parseRuby(self, iterator):
+        res = []
+        for i, val in iterator:
+            if str(val[0]) in ["Token.Name.Builtin"] and val[1] in ["require"]:
+                while iterator:
+                    i, val = next(iterator)
+                    if str(val[0]) in ["Token.Literal.String.Single"]:
+                        print()
+                        res.append(val[1].strip("'").strip('"'))
+                        break
+                    elif str(val[0]) in ["Token.Text"] and val[1] in ["\n", "\r\n"]:
+                        break
         return res
 
     def _parseGo(self, iterator):
