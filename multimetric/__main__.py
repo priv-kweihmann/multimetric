@@ -66,6 +66,11 @@ def ArgParser():
         "--coverage",
         default=None,
         help="File(s) with compiler warningsFile(s) holding information about testing coverage")
+    parser.add_argument(
+        "--dump",
+        default=False,
+        action="store_true",
+        help="Just dump the token tree")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
     RUNARGS = parser.parse_args()
@@ -106,23 +111,28 @@ if __name__ == '__main__':
             _localImporter = {k: FilteredImporter(
                 v, f) for k, v in _importer.items()}
             tokens = list(_lexer.get_tokens(_cnt))
-            _localMetrics = get_modules_metrics(_args, **_localImporter)
-            _localCalc = get_modules_calculated(_args, **_localImporter)
-            for x in _localMetrics:
-                x.parse_tokens(_lexer.name, tokens)
-                _result["files"][f].update(x.get_results())
-            for x in _overallMetrics:
-                x.parse_tokens(_lexer.name, tokens)
-                _result["overall"].update(x.get_results())
-            for x in _localCalc:
-                _result["files"][f].update(
-                    x.get_results(_result["files"][f]))
+            if _args.dump:
+                for x in tokens:
+                    print("{}: {} -> {}".format(f, x[0], str(x[1])))
+            else:
+                _localMetrics = get_modules_metrics(_args, **_localImporter)
+                _localCalc = get_modules_calculated(_args, **_localImporter)
+                for x in _localMetrics:
+                    x.parse_tokens(_lexer.name, tokens)
+                    _result["files"][f].update(x.get_results())
+                for x in _overallMetrics:
+                    x.parse_tokens(_lexer.name, tokens)
+                    _result["overall"].update(x.get_results())
+                for x in _localCalc:
+                    _result["files"][f].update(
+                        x.get_results(_result["files"][f]))
         except UnicodeDecodeError as e:
             print(str(e))
-    for x in _overallCalc:
-        _result["overall"].update(x.get_results(_result["overall"]))
-    for m in get_modules_stats(_args, **_importer):
-        _result = m.get_results(_result, "files", "overall")
+    if not _args.dump:
+        for x in _overallCalc:
+            _result["overall"].update(x.get_results(_result["overall"]))
+        for m in get_modules_stats(_args, **_importer):
+            _result = m.get_results(_result, "files", "overall")
 
-    # Output
-    print(json.dumps(_result, indent=2, sort_keys=True))
+        # Output
+        print(json.dumps(_result, indent=2, sort_keys=True))
