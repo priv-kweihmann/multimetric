@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 import textwrap
-import sys
+import multiprocessing as mp
 
 import chardet
 from pygments import lexers
@@ -71,12 +71,44 @@ def ArgParser():
         default=False,
         action="store_true",
         help="Just dump the token tree")
+    parser.add_argument(
+        "--jobs",
+        type=int,
+        default=1,
+        help="Run x jobs in parallel")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
     RUNARGS = parser.parse_args()
     # Turn all paths to abs-paths right here
     RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files]
     return RUNARGS
+
+
+def file_process(_file, _args, _importer):
+    res = {}
+    _lexer = lexers.get_lexer_for_filename(_file)
+    try:
+        with open(_file, "rb") as i:
+            _cnt = i.read()
+            _enc = chardet.detect(_cnt)
+            _cnt = _cnt.decode(_enc["encoding"]).encode("utf-8")
+        _localImporter = {k: FilteredImporter(v, _file) for k, v in _importer.items()}
+        tokens = list(_lexer.get_tokens(_cnt))
+        if _args.dump:
+            for x in tokens:
+                print("{}: {} -> {}".format(_file, x[0], str(x[1])))
+        else:
+            _localMetrics = get_modules_metrics(_args, **_localImporter)
+            _localCalc = get_modules_calculated(_args, **_localImporter)
+            for x in _localMetrics:
+                x.parse_tokens(_lexer.name, tokens)
+                res.update(x.get_results())
+            for x in _localCalc:
+                res.update(x.get_results(res))
+    except Exception:
+        tokens = []
+        pass
+    return (res, _file, _lexer.name, tokens)
 
 
 if __name__ == '__main__':
@@ -100,34 +132,14 @@ if __name__ == '__main__':
     _overallMetrics = get_modules_metrics(_args, **_importer)
     _overallCalc = get_modules_calculated(_args, **_importer)
 
-    for f in _args.files:
-        try:
-            _lexer = lexers.get_lexer_for_filename(f)
-            _result["files"][f] = {}
-            with open(f, "rb") as i:
-                _cnt = i.read()
-                _enc = chardet.detect(_cnt)
-                _cnt = _cnt.decode(_enc["encoding"]).encode("utf-8")
-            _localImporter = {k: FilteredImporter(
-                v, f) for k, v in _importer.items()}
-            tokens = list(_lexer.get_tokens(_cnt))
-            if _args.dump:
-                for x in tokens:
-                    print("{}: {} -> {}".format(f, x[0], str(x[1])))
-            else:
-                _localMetrics = get_modules_metrics(_args, **_localImporter)
-                _localCalc = get_modules_calculated(_args, **_localImporter)
-                for x in _localMetrics:
-                    x.parse_tokens(_lexer.name, tokens)
-                    _result["files"][f].update(x.get_results())
-                for x in _overallMetrics:
-                    x.parse_tokens(_lexer.name, tokens)
-                    _result["overall"].update(x.get_results())
-                for x in _localCalc:
-                    _result["files"][f].update(
-                        x.get_results(_result["files"][f]))
-        except UnicodeDecodeError as e:
-            print(str(e))
+    with mp.Pool(processes=_args.jobs) as pool:
+        results = [pool.apply(file_process, args=(f, _args, _importer)) for f in _args.files]
+
+    for x in results:
+        _result["files"][x[1]] = x[0]
+        for y in _overallMetrics:
+            y.parse_tokens(x[2], x[3])
+            _result["overall"].update(y.get_results())
     if not _args.dump:
         for x in _overallCalc:
             _result["overall"].update(x.get_results(_result["overall"]))
