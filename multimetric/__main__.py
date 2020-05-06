@@ -92,7 +92,8 @@ def file_process(_file, _args, _importer):
             _cnt = i.read()
             _enc = chardet.detect(_cnt)
             _cnt = _cnt.decode(_enc["encoding"]).encode("utf-8")
-        _localImporter = {k: FilteredImporter(v, _file) for k, v in _importer.items()}
+        _localImporter = {k: FilteredImporter(
+            v, _file) for k, v in _importer.items()}
         tokens = list(_lexer.get_tokens(_cnt))
         if _args.dump:
             for x in tokens:
@@ -107,11 +108,10 @@ def file_process(_file, _args, _importer):
                 res.update(x.get_results(res))
     except Exception:
         tokens = []
-        pass
     return (res, _file, _lexer.name, tokens)
 
 
-if __name__ == '__main__':
+def main():
     _args = ArgParser()
     _result = {"files": {}, "overall": {}}
 
@@ -133,7 +133,8 @@ if __name__ == '__main__':
     _overallCalc = get_modules_calculated(_args, **_importer)
 
     with mp.Pool(processes=_args.jobs) as pool:
-        results = [pool.apply(file_process, args=(f, _args, _importer)) for f in _args.files]
+        results = [pool.apply(file_process, args=(
+            f, _args, _importer)) for f in _args.files]
 
     for x in results:
         _result["files"][x[1]] = x[0]
@@ -148,3 +149,7 @@ if __name__ == '__main__':
 
         # Output
         print(json.dumps(_result, indent=2, sort_keys=True))
+
+
+if __name__ == '__main__':
+    main()
