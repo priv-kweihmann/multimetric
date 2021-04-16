@@ -35,6 +35,3 @@ jobs:
       run: python3 setup.py build
     - name: Install
       run: python3 setup.py install
-    - name: Test
-      run: ./test.sh
-      shell: bash
