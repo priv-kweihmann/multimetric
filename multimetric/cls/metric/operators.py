@@ -34,4 +34,14 @@ class MetricBaseOperator(MetricBase):
     def get_results(self):
         self._metrics[MetricBaseOperator.METRIC_OPERATORS_SUM] = len(self.__operator)
         self._metrics[MetricBaseOperator.METRIC_OPERATORS_UNIQUE] = len(list(set(self.__operator)))
+        self._internalstore["operator"] = self.__operator
         return self._metrics
+
+    def get_results_global(self, value_stores):
+        _operator = []
+        for x in self._get_all_matching_store_objects(value_stores):
+            _operator += x["operator"]
+        return {
+            MetricBaseOperator.METRIC_OPERATORS_SUM: len(_operator),
+            MetricBaseOperator.METRIC_OPERATORS_UNIQUE: len(list(set(_operator)))
+        }

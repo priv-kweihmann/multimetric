@@ -101,3 +101,16 @@ class MetricBaseFanout(MetricBase):
                 self._ext.add(str(x))
         self._metrics.update({MetricBaseFanout.METRIC_FANOUT_INTERNAL: len(list(self._int)),
                               MetricBaseFanout.METRIC_FANOUT_EXTERNAL: len(list(self._ext))})
+        self._internalstore["int"] = list(self._int)
+        self._internalstore["ext"] = list(self._ext)
+
+    def get_results_global(self, value_stores):
+        _int = []
+        _ext = []
+        for x in self._get_all_matching_store_objects(value_stores):
+            _int += x["int"]
+            _ext += x["ext"]
+        return {
+            MetricBaseFanout.METRIC_FANOUT_INTERNAL: len(_int),
+            MetricBaseFanout.METRIC_FANOUT_EXTERNAL: len(_ext)
+        }

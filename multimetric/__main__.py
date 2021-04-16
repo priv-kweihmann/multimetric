@@ -86,6 +86,7 @@ def ArgParser():
 
 def file_process(_file, _args, _importer):
     res = {}
+    store = {}
     _lexer = lexers.get_lexer_for_filename(_file)
     try:
         with open(_file, "rb") as i:
@@ -104,11 +105,13 @@ def file_process(_file, _args, _importer):
             for x in _localMetrics:
                 x.parse_tokens(_lexer.name, tokens)
                 res.update(x.get_results())
+                store.update(x.get_internal_store())
             for x in _localCalc:
                 res.update(x.get_results(res))
+                store.update(x.get_internal_store())
     except Exception:
         tokens = []
-    return (res, _file, _lexer.name, tokens)
+    return (res, _file, _lexer.name, tokens, store)
 
 
 def main():
@@ -138,15 +141,14 @@ def main():
 
     for x in results:
         _result["files"][x[1]] = x[0]
-        for y in _overallMetrics:
-            y.parse_tokens(x[2], x[3])
-            _result["overall"].update(y.get_results())
-    if not _args.dump:
-        for x in _overallCalc:
-            _result["overall"].update(x.get_results(_result["overall"]))
-        for m in get_modules_stats(_args, **_importer):
-            _result = m.get_results(_result, "files", "overall")
 
+    for y in _overallMetrics:
+        _result["overall"].update(y.get_results_global([x[4] for x in results]))
+    for y in _overallCalc:
+        _result["overall"].update(y.get_results(_result["overall"]))
+    for m in get_modules_stats(_args, **_importer):
+        _result = m.get_results(_result, "files", "overall")
+    if not _args.dump:
         # Output
         print(json.dumps(_result, indent=2, sort_keys=True))
 

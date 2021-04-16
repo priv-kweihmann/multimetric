@@ -40,4 +40,16 @@ class MetricBaseComments(MetricBase):
             self.__overall = 1
         self._metrics[MetricBaseComments.METRIC_COMMENT_RATIO] = self.__comments * \
             100.0 / float(self.__overall)
+        self._internalstore["comments"] = self.__comments
+        self._internalstore["overall"] = self.__overall
         return self._metrics
+
+    def get_results_global(self, value_stores):
+        __comments = 0
+        __overall = 0
+        for x in self._get_all_matching_store_objects(value_stores):
+            __comments += x["comments"]
+            __overall += x["overall"]
+        return {
+            MetricBaseComments.METRIC_COMMENT_RATIO: __comments * 100.0 / float(__overall)
+        }
