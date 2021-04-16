@@ -1,7 +1,0 @@
-#!/bin/bash
-TESTFILE="$(pwd)/testfiles/test.rb"
-pretty_out=$(multimetric "${TESTFILE}" 2>/dev/null | jq -S . -)
-diff -yq <(echo "${pretty_out}") <(jq -S . "${0}".cmp) && exit 0
-echo "Test for ${0} failed: tool output at ${0}.tool"
-echo "${pretty_out}" > ${0}.tool
-exit 1
