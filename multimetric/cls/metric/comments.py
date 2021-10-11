@@ -51,5 +51,5 @@ class MetricBaseComments(MetricBase):
             __comments += x["comments"]
             __overall += x["overall"]
         return {
-            MetricBaseComments.METRIC_COMMENT_RATIO: __comments * 100.0 / float(__overall)
+            MetricBaseComments.METRIC_COMMENT_RATIO: __comments * 100.0 / float(__overall or 1.0)
         }
