@@ -76,6 +76,10 @@ def ArgParser():
         type=int,
         default=1,
         help="Run x jobs in parallel")
+    parser.add_argument(
+        "--ignore_lexer_errors",
+        default=False,
+        help="Ignore unparseable files")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
     RUNARGS = parser.parse_args()
@@ -87,7 +91,13 @@ def ArgParser():
 def file_process(_file, _args, _importer):
     res = {}
     store = {}
-    _lexer = lexers.get_lexer_for_filename(_file)
+    try:
+        _lexer = lexers.get_lexer_for_filename(_file)
+    except Exception as e:
+        if _args.ignore_lexer_errors:
+            return (res, _file, "unknown", [], store)
+        else:
+            raise
     try:
         with open(_file, "rb") as i:
             _cnt = i.read()
