@@ -34,7 +34,6 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             self.__miMethod = MetricBaseCalcMaintenanceIndex.MI_DEFAULT
 
     def get_results(self, metrics):
-        print(metrics)
         try:
             metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = eval(
                 MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod])
