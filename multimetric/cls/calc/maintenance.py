@@ -34,8 +34,12 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             self.__miMethod = MetricBaseCalcMaintenanceIndex.MI_DEFAULT
 
     def get_results(self, metrics):
-        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = eval(
-            MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod])
+        print(metrics)
+        try:
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = eval(
+                MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod])
+        except Exception as e:
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX]=0
         # Sanity
         metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = max(
             metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0)
