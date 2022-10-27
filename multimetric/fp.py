@@ -1,3 +1,4 @@
+import sys
 import chardet
 from pygments import lexers
 
@@ -15,6 +16,8 @@ def file_process(_file, _args, _importer):
         _lexer = lexers.get_lexer_for_filename(_file)
     except Exception as e:
         if _args.ignore_lexer_errors:
+            # Printing to stderr since we write results to STDOUT
+            print("Processing unknown file type: " + _file, file=sys.stderr)
             return (res, _file, "unknown", [], store)
         else:
             raise
