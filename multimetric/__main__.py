@@ -75,7 +75,7 @@ def ArgParser():
         help="Run x jobs in parallel")
     parser.add_argument(
         "--ignore_lexer_errors",
-        default=False,
+        default=True,
         help="Ignore unparseable files")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
