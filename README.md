@@ -4,7 +4,6 @@
 [![PyPI version](https://badge.fury.io/py/multimetric.svg)](https://badge.fury.io/py/multimetric)
 [![Python version](https://img.shields.io/pypi/pyversions/multimetric)](https://img.shields.io/pypi/pyversions/multimetric)
 [![Downloads](https://img.shields.io/pypi/dm/multimetric)](https://img.shields.io/pypi/dm/multimetric)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/priv-kweihmann/multimetric.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/priv-kweihmann/multimetric/context:python)
 
 Calculate code metrics in various languages
 
