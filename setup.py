@@ -16,7 +16,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="multimetric",
-    version="1.3.1",
+    version="1.4.1",
     author="Jason Nichols",
     author_email="jn@ayl.us",
     description="Calculate code metrics in various languages",
