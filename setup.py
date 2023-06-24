@@ -15,10 +15,10 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setuptools.setup(
-    name="multimetric",
+    name="modernmetric",
     version="1.4.1",
     author="Jason Nichols",
-    author_email="jn@ayl.us",
+    author_email="jason@startupos.dev",
     description="Calculate code metrics in various languages",
     long_description=_long_description,
     long_description_content_type=_long_description_content_type,

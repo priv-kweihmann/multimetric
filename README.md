@@ -1,10 +1,4 @@
 # multimetric
-
-![Build status](https://github.com/priv-kweihmann/multimetric/workflows/Build/badge.svg)
-[![PyPI version](https://badge.fury.io/py/multimetric.svg)](https://badge.fury.io/py/multimetric)
-[![Python version](https://img.shields.io/pypi/pyversions/multimetric)](https://img.shields.io/pypi/pyversions/multimetric)
-[![Downloads](https://img.shields.io/pypi/dm/multimetric)](https://img.shields.io/pypi/dm/multimetric)
-
 Calculate code metrics in various languages
 
 ## Purpose
