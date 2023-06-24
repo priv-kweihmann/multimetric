@@ -1,4 +1,4 @@
-# multimetric
+# Modern Metric
 Calculate code metrics in various languages
 
 ## Purpose
@@ -33,7 +33,7 @@ This tool was heavily inspired by [metrics](https://github.com/markfink/metrics)
 simply run
 
 ```sh
-pip3 install multimetric
+pip3 install modernmetric
 ```
 
 ### From source
@@ -46,7 +46,7 @@ pip3 install multimetric
 ## Usage
 
 ```shell
-usage: multimetric [-h] [--warn_compiler WARN_COMPILER]
+usage: modernmetric [-h] [--warn_compiler WARN_COMPILER]
                    [--warn_duplication WARN_DUPLICATION]
                    [--warn_functional WARN_FUNCTIONAL]
                    [--warn_standard WARN_STANDARD]

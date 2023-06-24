@@ -27,7 +27,7 @@ setuptools.setup(
     install_requires=requirements,
         entry_points={
         "console_scripts": [
-            "multimetric = multimetric.__main__:main",
+            "modernmetric = modernmetric.__main__:main",
         ]
     },
     classifiers=[
