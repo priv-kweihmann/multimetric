@@ -1,2 +1,2 @@
-chardet>=3.0.0
-pygments>=2.5.0
+chardet ~= 5.0
+pygments ~= 2.15
