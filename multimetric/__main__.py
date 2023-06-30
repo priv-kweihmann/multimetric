@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
+
 import argparse
 import json
 import multiprocessing as mp
@@ -74,13 +77,17 @@ def ArgParser():
     parser.add_argument(
         "--jobs",
         type=int,
-        default=1,
+        default=mp.cpu_count(),
         help="Run x jobs in parallel")
     get_additional_parser_args(parser)
     parser.add_argument("files", nargs='+', help="Files to parse")
-    RUNARGS = parser.parse_args()
+    return parser
+
+
+def parse_args(*args):
+    RUNARGS = ArgParser().parse_args(*args)
     # Turn all paths to abs-paths right here
-    RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files]
+    RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files if os.path.isabs(x)]
     return RUNARGS
 
 
@@ -118,8 +125,7 @@ def file_process(_file, _args, _importer):
     return (res, _file, _lexer.name, tokens, store)
 
 
-def main():
-    _args = ArgParser()
+def run(_args):
     _result = {"files": {}, "overall": {}}
 
     # Get importer
@@ -153,6 +159,13 @@ def main():
         _result["overall"].update(y.get_results(_result["overall"]))
     for m in get_modules_stats(_args, **_importer):
         _result = m.get_results(_result, "files", "overall")
+
+    return _result
+
+
+def main():
+    _args = parse_args()
+    _result = run(_args)
     if not _args.dump:
         # Output
         print(json.dumps(_result, indent=2, sort_keys=True))
