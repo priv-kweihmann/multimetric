@@ -1,4 +1,3 @@
-import ast
 import math
 
 from multimetric.cls.base_calc import MetricBaseCalc
@@ -8,18 +7,26 @@ from multimetric.cls.metric.operators import MetricBaseOperator
 
 class MetricBaseCalcHalstead(MetricBaseCalc):
 
-    BUGPRED_METHOD = {
-        "old": "(self._effort * (2.0 / 3.0)) / 3000.0",
-        "new": "self._volume / 3000.0",
-    }
-
-    BUGPRED_DEFAULT = "new"
-
     METRIC_HALSTEAD_VOLUME = "halstead_volume"
     METRIC_HALSTEAD_EFFORT = "halstead_effort"
     METRIC_HALSTEAD_DIFFICULTY = "halstead_difficulty"
     METRIC_HALSTEAD_BUGS = "halstead_bugprop"
     METRIC_HALSTEAD_TIMEREQ = "halstead_timerequired"
+    
+
+    @staticmethod
+    def _bugpred_old(obj):
+        return (obj._effort * (2.0 / 3.0)) / 3000.0
+
+    @staticmethod
+    def _bugpred_new(obj):
+        return obj._volume / 3000.0
+    
+    BUGPRED_DEFAULT = "new"
+    BUGPRED_METHOD = {
+        "old": _bugpred_old,
+        "new": _bugpred_new,
+    }
 
     def __init__(self, args, **kwargs):
         super().__init__(args, **kwargs)
@@ -77,7 +84,7 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
 
     def _getBug(self, metrics):
         self._getEffort(metrics)
-        self._bug = ast.literal_eval(MetricBaseCalcHalstead.BUGPRED_METHOD[self.__bugPredicMethod])
+        self._bug = MetricBaseCalcHalstead.BUGPRED_METHOD[self.__bugPredicMethod](self)
         return self._bug
 
     def get_results(self, metrics):
