@@ -1,8 +1,8 @@
 import argparse
 import json
+import multiprocessing as mp
 import os
 import textwrap
-import multiprocessing as mp
 
 import chardet
 from pygments import lexers
@@ -102,7 +102,7 @@ def file_process(_file, _args, _importer):
         tokens = list(_lexer.get_tokens(_cnt))
         if _args.dump:
             for x in tokens:
-                print("{}: {} -> {}".format(_file, x[0], str(x[1])))
+                print(f"{_file}: {x[0]} -> {x[1]}")
         else:
             _localMetrics = get_modules_metrics(_args, **_localImporter)
             _localCalc = get_modules_calculated(_args, **_localImporter)
@@ -147,7 +147,8 @@ def main():
         _result["files"][x[1]] = x[0]
 
     for y in _overallMetrics:
-        _result["overall"].update(y.get_results_global([x[4] for x in results]))
+        _result["overall"].update(
+            y.get_results_global([x[4] for x in results]))
     for y in _overallCalc:
         _result["overall"].update(y.get_results(_result["overall"]))
     for m in get_modules_stats(_args, **_importer):

@@ -5,7 +5,7 @@ class MetricBaseLOC(MetricBase):
     METRIC_LOC = "loc"
 
     _needles = [
-        "Token.Text"
+        "Token.Text",
     ]
 
     def __init__(self, args, **kwargs):
@@ -22,4 +22,4 @@ class MetricBaseLOC(MetricBase):
 
     def get_results_global(self, value_stores):
         _sum = sum([x["loc"] for x in self._get_all_matching_store_objects(value_stores)])
-        return { MetricBaseLOC.METRIC_LOC: _sum }
+        return {MetricBaseLOC.METRIC_LOC: _sum}

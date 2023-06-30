@@ -26,8 +26,8 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
         return 100.0 / ((value) / (metrics[MetricBaseLOC.METRIC_LOC] / 1000.0) + 1.0)
 
     def __getFromImporter(self, section, _default=0.0):
-        if "import_{}".format(section) in self.__addArgs:
-            return self.__addArgs["import_{}".format(section)].getSumItems()
+        if f"import_{section}" in self.__addArgs:
+            return self.__addArgs[f"import_{section}"].getSumItems()
         return _default
 
     def __getTiobeComplexity(self, metrics):
@@ -66,14 +66,14 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
         return max(self.__getScaledValue(metrics, _violations) * 2.0 - 100.0, 0.0)
 
     def __getTiobe(self, metrics):
-        return (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COVERAGE] * 0.2) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_FUNCTIONAL] * 0.2) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COMPLEXITY] * 0.15) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COMPILER] * 0.15) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_STANDARD] * 0.1) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_DUPLICATION] * 0.1) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_FANOUT] * 0.05) + \
-               (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_SECURITY] * 0.05)
+        return ((metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COVERAGE] * 0.2) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_FUNCTIONAL] * 0.2) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COMPLEXITY] * 0.15) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COMPILER] * 0.15) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_STANDARD] * 0.1) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_DUPLICATION] * 0.1) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_FANOUT] * 0.05) +
+                (metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_SECURITY] * 0.05))
 
     def get_results(self, metrics):
         metrics[MetricBaseCalcTIOBE.METRIC_TIOBE_COMPLEXITY] = self.__getTiobeComplexity(metrics)

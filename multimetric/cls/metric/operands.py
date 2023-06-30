@@ -39,7 +39,7 @@ class MetricBaseOperands(MetricBase):
         "Token.String.Other",
         "Token.String.Regex",
         "Token.String.Single",
-        "Token.String.Symbol"
+        "Token.String.Symbol",
     ]
 
     METRIC_OPERANDS_SUM = "operands_sum"
@@ -68,5 +68,5 @@ class MetricBaseOperands(MetricBase):
             _operands += x["operands"]
         return {
             MetricBaseOperands.METRIC_OPERANDS_SUM: len(_operands),
-            MetricBaseOperands.METRIC_OPERANDS_UNIQUE: len(list(set(_operands)))
+            MetricBaseOperands.METRIC_OPERANDS_UNIQUE: len(list(set(_operands))),
         }

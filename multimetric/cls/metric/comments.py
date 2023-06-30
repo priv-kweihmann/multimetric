@@ -8,13 +8,13 @@ class MetricBaseComments(MetricBase):
         "Token.Comment.Multiline",
         "Token.Comment.Single",
         "Token.Comment.Special",
-        "Token.Literal.String.Doc"
+        "Token.Literal.String.Doc",
     ]
 
     _specific = {
         "Python": [
-            "Token.Comment.Preproc"
-        ]
+            "Token.Comment.Preproc",
+        ],
     }
 
     METRIC_COMMENT_RATIO = "comment_ratio"
@@ -38,8 +38,8 @@ class MetricBaseComments(MetricBase):
         if self.__overall == 0:
             # sanity
             self.__overall = 1
-        self._metrics[MetricBaseComments.METRIC_COMMENT_RATIO] = self.__comments * \
-            100.0 / float(self.__overall)
+        self._metrics[MetricBaseComments.METRIC_COMMENT_RATIO] = (self.__comments *
+                                                                  100.0 / float(self.__overall))
         self._internalstore["comments"] = self.__comments
         self._internalstore["overall"] = self.__overall
         return self._metrics
@@ -51,5 +51,5 @@ class MetricBaseComments(MetricBase):
             __comments += x["comments"]
             __overall += x["overall"]
         return {
-            MetricBaseComments.METRIC_COMMENT_RATIO: __comments * 100.0 / float(__overall or 1.0)
+            MetricBaseComments.METRIC_COMMENT_RATIO: __comments * 100.0 / float(__overall or 1.0),
         }

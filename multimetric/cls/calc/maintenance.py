@@ -1,25 +1,26 @@
-from multimetric.cls.base_calc import MetricBaseCalc
-
+import ast
 import math  # noqa: F401
+
+from multimetric.cls.base_calc import MetricBaseCalc
 
 
 class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
     MI_METHOD = {
-        "sei": '171.0 \
-             - (5.2 * math.log2(metrics["halstead_volume"])) \
-             - (0.23 * metrics["cyclomatic_complexity"]) \
-             - (16.2 * math.log2(metrics["loc"])) \
-             + (50.0 * math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))',
-        "classic": '171.0 \
-            - (5.2 * math.log(metrics["halstead_volume"])) \
-            - (0.23 * metrics["cyclomatic_complexity"]) \
-            - (16.2 * math.log(metrics["loc"]))',
-        "microsoft": 'max(0, \
-                171.0 \
-                - (5.2 * math.log(metrics["halstead_volume"])) \
-                - (0.23 * metrics["cyclomatic_complexity"]), \
-                - (16.2 * math.log(metrics["loc"]) * 100.0 / 171.0))'
+        "sei": '171.0 ' +
+        '- (5.2 * math.log2(metrics["halstead_volume"])) ' +
+        '- (0.23 * metrics["cyclomatic_complexity"]) ' +
+        '- (16.2 * math.log2(metrics["loc"])) ' +
+        '+ (50.0 * math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))',
+        "classic": '171.0 ' +
+        '- (5.2 * math.log(metrics["halstead_volume"])) ' +
+        '- (0.23 * metrics["cyclomatic_complexity"]) ' +
+        '- (16.2 * math.log(metrics["loc"]))',
+        "microsoft": 'max(0, ' +
+        '171.0 ' +
+        '- (5.2 * math.log(metrics["halstead_volume"])) ' +
+        '- (0.23 * metrics["cyclomatic_complexity"]), ' +
+        '- (16.2 * math.log(metrics["loc"]) * 100.0 / 171.0))',
     }
 
     MI_DEFAULT = "classic"

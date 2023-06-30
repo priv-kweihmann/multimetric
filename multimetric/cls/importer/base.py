@@ -6,11 +6,11 @@ class Importer():
             self._values = {
                 "filename": _file,
                 "content": _cnt,
-                "severity": _sev
+                "severity": _sev,
             }
 
         def match(self, _filter):
-            return all([self._values[k] == v for k, v in _filter.items()])
+            return all(self._values[k] == v for k, v in _filter.items())
 
         def get(self):
             return self._values
@@ -26,10 +26,10 @@ class Importer():
         self._input = filearg
         self._items = []
 
-    def getItems(self, _filter={}):
-        return [x.get() for x in self._items if x.match(_filter)]
+    def getItems(self, _filter=None):
+        return [x.get() for x in self._items if x.match(_filter or {})]
 
-    def getSumItems(self, _filter={}):
+    def getSumItems(self, _filter=None):
         _items = self.getItems(_filter=_filter)
         if len(_items) == 1:
             if str.isdigit(_items[0]["content"]):

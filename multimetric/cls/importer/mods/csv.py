@@ -17,4 +17,4 @@ class ImporterCSV(Importer):
                 for row in reader:
                     self._items.append(Importer.ImporterItem.from_csv(row))
         except Exception as e:
-            sys.stderr.write("Read error: {}\n".format(e))
+            sys.stderr.write(f"Read error: {e}\n")

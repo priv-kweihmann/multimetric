@@ -20,4 +20,4 @@ class ImporterJSON(Importer):
                         _sev = v["severity"]
                     self._items.append(Importer.ImporterItem(_file=k, _cnt=v["content"], _sev=_sev))
         except Exception as e:
-            sys.stderr.write("Read error: {}\n".format(e))
+            sys.stderr.write(f"Read error: {e}\n")

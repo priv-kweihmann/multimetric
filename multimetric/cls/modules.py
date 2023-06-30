@@ -27,13 +27,13 @@ def get_modules_calculated(args, **kwargs):
         MetricBaseCalcHalstead(args, **kwargs),
         MetricBaseCalcMaintenanceIndex(args, **kwargs),
         MetricBaseCalcTIOBE(args, **kwargs),
-        MetricBaseCalcPylint(args, **kwargs)
+        MetricBaseCalcPylint(args, **kwargs),
     ]
 
 
 def get_modules_stats(args, **kwargs):
     return [
-        MetricBaseStatsAverage(args, **kwargs)
+        MetricBaseStatsAverage(args, **kwargs),
     ]
 
 

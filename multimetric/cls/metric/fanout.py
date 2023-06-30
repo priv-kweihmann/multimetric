@@ -4,24 +4,24 @@ from multimetric.cls.base import MetricBase
 class MetricBaseFanout(MetricBase):
     _needles = {
         "Python": [
-            "Token.Name.Namespace"
+            "Token.Name.Namespace",
         ],
         "C": [
-            "Token.Comment.PreprocFile"
+            "Token.Comment.PreprocFile",
         ],
         "C++": [
-            "Token.Comment.PreprocFile"
-        ]
+            "Token.Comment.PreprocFile",
+        ],
     }
     _functions = {
         "PHP": "_parsePHP",
         "Go": "_parseGo",
-        "Ruby": "_parseRuby"
+        "Ruby": "_parseRuby",
     }
     _internal = {
         "Python": {"start": ".", "end": ""},
         "C": {"start": "\"", "end": "\""},
-        "C++": {"start": "\"", "end": "\""}
+        "C++": {"start": "\"", "end": "\""},
     }
 
     METRIC_FANOUT_INTERNAL = "fanout_internal"
@@ -40,39 +40,36 @@ class MetricBaseFanout(MetricBase):
         res = []
         _start_token = ["include", "require", "include_once", "require_once"]
         _cont_token = ["Token.Literal.String.Single", "Token.Literal.String.Double"]
-        for i, val in iterator:
-            if str(val[0]) in ["Token.Keyword"] and \
-               val[1] in _start_token:
-                while iterator and \
-                      str(val[0]) not in _cont_token:
+        for _, value in iterator:
+            if str(value[0]) in ["Token.Keyword"] and value[1] in _start_token:
+                while iterator and str(value[0]) not in _cont_token:
                     i, val = next(iterator)
                 if iterator:
-                    res.append(val[1].strip("'").strip('"'))
+                    res.append(value[1].strip("'").strip('"'))
         return res
 
     def _parseRuby(self, iterator):
         res = []
-        for i, val in iterator:
-            if str(val[0]) in ["Token.Name.Builtin"] and val[1] in ["require"]:
+        for i, value in iterator:
+            if str(value[0]) in ["Token.Name.Builtin"] and value[1] in ["require"]:
                 while iterator:
-                    i, val = next(iterator)
-                    if str(val[0]) in ["Token.Literal.String.Single"]:
-                        print()
-                        res.append(val[1].strip("'").strip('"'))
+                    i, value = next(iterator)
+                    if str(value[0]) in ["Token.Literal.String.Single"]:
+                        res.append(value[1].strip("'").strip('"'))
                         break
-                    elif str(val[0]) in ["Token.Text"] and val[1] in ["\n", "\r\n"]:
+                    elif str(value[0]) in ["Token.Text"] and value[1] in ["\n", "\r\n"]:
                         break
         return res
 
     def _parseGo(self, iterator):
         res = []
-        for i, val in iterator:
-            if str(val[0]) in ["Token.Keyword.Namespace"] and val[1] in ["import"]:
+        for i, value in iterator:
+            if str(value[0]) in ["Token.Keyword.Namespace"] and value[1] in ["import"]:
                 while iterator:
                     i, val = next(iterator)
-                    if str(val[0]) in ["Token.Literal.String"]:
-                        res.append(val[1].strip("'").strip('"'))
-                    if str(val[0]) in ["Token.Punctuation"] and val[1] in [')']:
+                    if str(value[0]) in ["Token.Literal.String"]:
+                        res.append(value[1].strip("'").strip('"'))
+                    if str(value[0]) in ["Token.Punctuation"] and value[1] in [')']:
                         break
         return res
 
@@ -90,10 +87,6 @@ class MetricBaseFanout(MetricBase):
         elif language in MetricBaseFanout._functions:
             _imports = getattr(self,
                                MetricBaseFanout._functions[language])(enumerate(tokens))
-        # else:
-        #     # Language isn't supported at the moment
-        #     for x in tokens:
-        #         print(str(x))
         for x in _imports:
             if self.__isInternal(x, _i):
                 self._int.add(str(x))
@@ -112,5 +105,5 @@ class MetricBaseFanout(MetricBase):
             _ext += x["ext"]
         return {
             MetricBaseFanout.METRIC_FANOUT_INTERNAL: len(_int),
-            MetricBaseFanout.METRIC_FANOUT_EXTERNAL: len(_ext)
+            MetricBaseFanout.METRIC_FANOUT_EXTERNAL: len(_ext),
         }

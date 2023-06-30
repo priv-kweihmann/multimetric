@@ -8,4 +8,3 @@ class MetricBaseStats():
         This alters the originally passed metrics by calculated ones
         """
         return metrics
-    

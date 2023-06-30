@@ -9,7 +9,7 @@ class MetricBaseCyclomaticComplexity(MetricBase):
         "assert",
         "break",
         "continue",
-        "yield"
+        "yield",
     ]
 
     __conditions = [
@@ -23,7 +23,7 @@ class MetricBaseCyclomaticComplexity(MetricBase):
         "and",
         "or",
         "&&",
-        "||"
+        "||",
     ]
 
     METRIC_CYCLOMATIC_COMPLEXITY = "cyclomatic_complexity"
@@ -54,5 +54,5 @@ class MetricBaseCyclomaticComplexity(MetricBase):
             __exitPoints += x["exitpoints"]
         return {
             MetricBaseCyclomaticComplexity.METRIC_CYCLOMATIC_COMPLEXITY: max(
-                __conditions - __exitPoints + 2, 0)
+                __conditions - __exitPoints + 2, 0),
         }

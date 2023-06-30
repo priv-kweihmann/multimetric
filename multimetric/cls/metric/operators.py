@@ -43,5 +43,5 @@ class MetricBaseOperator(MetricBase):
             _operator += x["operator"]
         return {
             MetricBaseOperator.METRIC_OPERATORS_SUM: len(_operator),
-            MetricBaseOperator.METRIC_OPERATORS_UNIQUE: len(list(set(_operator)))
+            MetricBaseOperator.METRIC_OPERATORS_UNIQUE: len(list(set(_operator))),
         }

@@ -6,7 +6,7 @@ from multimetric.cls.importer.mods.csv import ImporterCSV
 from multimetric.cls.importer.mods.json import ImporterJSON
 
 
-def importer_pick(args, filearg):
+def importer_pick(args, filearg):  # noqa: CFQ004
     if not filearg:
         return None
     _file, _ext = os.path.splitext(filearg)
@@ -14,5 +14,5 @@ def importer_pick(args, filearg):
         return ImporterCSV(args, filearg)
     if _ext in [".json"]:
         return ImporterJSON(args, filearg)
-    sys.stderr.write("No supported importer found for {}\n".format(_ext))
+    sys.stderr.write(f"No supported importer found for {_ext}\n")
     return Importer(args, None)
