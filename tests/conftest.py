@@ -61,6 +61,7 @@ def pytest_generate_tests(metafunc):
         'file_CPP': 'archive/c/c-plus-plus',
         'file_CSHARP': 'archive/c/c-sharp',
         'file_DART': 'archive/d/dart',
+        'file_GO': 'archive/g/go',
         'file_GROOVY': 'archive/g/groovy',
         'file_HASKELL': 'archive/h/haskell',
         'file_JAVA': 'archive/j/java',

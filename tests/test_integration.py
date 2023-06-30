@@ -62,6 +62,14 @@ class TestClassIntegration():
             assert 'Dart' in result.get('files', {}).get(f, {}).get('lang', [])
             assert result.get('files', {}).get(f, {}).get('operands_sum', 0) > 0
 
+    def test_go(self, file_GO):
+        result, files = self._run(file_GO)
+
+        for f in files:
+            assert 'Go' in result.get('files', {}).get(f, {}).get('lang', [])
+            # FIXME!
+            #assert result.get('files', {}).get(f, {}).get('operands_sum', 0) > 0
+
     def test_groovy(self, file_GROOVY):
         result, files = self._run(file_GROOVY)
 
