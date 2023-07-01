@@ -83,10 +83,9 @@ class TestClassIntegration():
 
         for index, f in enumerate(files):
             assert 'Go' in result.get('files', {}).get(f, {}).get('lang', [])
+            assert result.get('files', {}).get(f, {}).get('operands_sum', 0) > 0
             if loc[index] > 1:
                 assert result.get('files', {}).get(f, {}).get('loc', 0) > 1
-            # FIXME!
-            #assert result.get('files', {}).get(f, {}).get('operands_sum', 0) > 0
 
     def test_groovy(self, file_GROOVY):
         result, files, loc = self._run(file_GROOVY)
