@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import logging
 import multiprocessing as mp
 import os
 import textwrap
@@ -109,7 +110,7 @@ def file_process(_file, _args, _importer):
         tokens = list(_lexer.get_tokens(_cnt))
         if _args.dump:
             for x in tokens:
-                print(f"{_file}: {x[0]} -> {x[1]}")
+                print(f"{_file}: {x[0]} -> {repr(x[1])}")
         else:
             _localMetrics = get_modules_metrics(_args, **_localImporter)
             _localCalc = get_modules_calculated(_args, **_localImporter)
@@ -120,7 +121,8 @@ def file_process(_file, _args, _importer):
             for x in _localCalc:
                 res.update(x.get_results(res))
                 store.update(x.get_internal_store())
-    except Exception:
+    except Exception as e:
+        logging.exception(e)
         tokens = []
     return (res, _file, _lexer.name, tokens, store)
 
