@@ -43,7 +43,10 @@ class MetricBaseFanout(MetricBase):
         for _, value in iterator:
             if str(value[0]) in ["Token.Keyword"] and value[1] in _start_token:
                 while iterator and str(value[0]) not in _cont_token:
-                    i, val = next(iterator)
+                    try:
+                        i, val = next(iterator)
+                    except StopIteration:
+                        break
                 if iterator:
                     res.append(value[1].strip("'").strip('"'))
         return res
@@ -66,10 +69,13 @@ class MetricBaseFanout(MetricBase):
         for i, value in iterator:
             if str(value[0]) in ["Token.Keyword.Namespace"] and value[1] in ["import"]:
                 while iterator:
-                    i, val = next(iterator)
-                    if str(value[0]) in ["Token.Literal.String"]:
-                        res.append(value[1].strip("'").strip('"'))
-                    if str(value[0]) in ["Token.Punctuation"] and value[1] in [')']:
+                    try:
+                        i, val = next(iterator)
+                        if str(value[0]) in ["Token.Literal.String"]:
+                            res.append(value[1].strip("'").strip('"'))
+                        if str(value[0]) in ["Token.Punctuation"] and value[1] in [')']:
+                            break
+                    except StopIteration:
                         break
         return res
 
