@@ -39,6 +39,7 @@ SAMPLE_PROGRAMS_URL = f"https://github.com/TheRenegadeCoder/sample-programs/arch
 
 def pytest_sessionstart(session):
     pytest.test_dir = os.path.join(os.path.dirname(__file__), '__data')
+    pytest.test_dir_local = os.path.join(os.path.dirname(__file__), '__data_local')
     pytest.test_dir_samples = os.path.join(pytest.test_dir, f'sample-programs-{SAMPLE_PROGRAMS_REVISION}')
     if os.path.exists(pytest.test_dir):
         return
