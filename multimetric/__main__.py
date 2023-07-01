@@ -87,7 +87,11 @@ def ArgParser():
 def file_process(_file, _args, _importer):
     res = {}
     store = {}
-    _lexer = lexers.get_lexer_for_filename(_file)
+    try:
+        _lexer = lexers.get_lexer_for_filename(_file)
+    except ValueError:
+        print(f'The file {_file} could not be identified automatically. Skipping this file.')
+        return ({}, _file, 'lexer.error', [], {})
     try:
         with open(_file, "rb") as i:
             _cnt = i.read()
