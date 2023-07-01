@@ -23,7 +23,7 @@ setuptools.setup(
     long_description=_long_description,
     long_description_content_type=_long_description_content_type,
     url="https://github.com/priv-kweihmann/multimetric",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(exclude='tests'),
     install_requires=requirements,
         entry_points={
         "console_scripts": [
@@ -38,7 +38,6 @@ setuptools.setup(
         "Natural Language :: English",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python :: 3 :: Only",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
