@@ -162,7 +162,18 @@ def run(_args):
     for m in get_modules_stats(_args, **_importer):
         _result = m.get_results(_result, "files", "overall")
 
-    return _result
+    def round_float(item):
+        if isinstance(item, dict):
+            for k, v in item.items():
+                item[k] = round_float(v)
+        elif isinstance(item, list):
+            for index, value in enumerate(item):
+                item[index] = round_float(value)
+        elif isinstance(item, float):
+            item = round(item, 3)
+        return item
+
+    return round_float(_result)
 
 
 def main():
