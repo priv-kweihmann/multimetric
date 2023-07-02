@@ -44,7 +44,7 @@ class MetricBaseFanout(MetricBase):
             if str(value[0]) in ["Token.Keyword"] and value[1] in _start_token:
                 while iterator and str(value[0]) not in _cont_token:
                     try:
-                        i, val = next(iterator)
+                        _, value = next(iterator)
                     except StopIteration:
                         break
                 if iterator:
@@ -66,11 +66,11 @@ class MetricBaseFanout(MetricBase):
 
     def _parseGo(self, iterator):
         res = []
-        for i, value in iterator:
+        for _, value in iterator:
             if str(value[0]) in ["Token.Keyword.Namespace"] and value[1] in ["import"]:
                 while iterator:
                     try:
-                        i, val = next(iterator)
+                        _, value = next(iterator)
                         if str(value[0]) in ["Token.Literal.String"]:
                             res.append(value[1].strip("'").strip('"'))
                         if str(value[0]) in ["Token.Punctuation"] and value[1] in [')']:
