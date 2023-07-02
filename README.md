@@ -26,6 +26,37 @@ This tool tries to calculate the following metrics for many, many programming la
 
 This tool was heavily inspired by [metrics](https://github.com/markfink/metrics)
 
+## Fully supported languages
+
+For the following programming language we do offer the complete feature set.
+
+* Bash/Shell
+* C
+* CoffeeScript
+* C++
+* C#
+* Dart
+* Go
+* Groovy
+* Haskell
+* Java
+* JavaScript
+* Julia
+* Kotlin
+* Lisp
+* Lua
+* Objective-C
+* Perl
+* PHP
+* Python
+* Ruby
+* Rust
+* TCL
+* TypeScript
+* Zig
+
+Other languages work too, but might have a more limited support of what metrics can be extracted.
+
 ## Requirements
 
 * python3
