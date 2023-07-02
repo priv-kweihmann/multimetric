@@ -94,7 +94,7 @@ def ArgParser():
 def parse_args(*args):
     RUNARGS = ArgParser().parse_args(*args)
     # Turn all paths to abs-paths right here
-    RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files if os.path.isabs(x)]
+    RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files]
     return RUNARGS
 
 
@@ -128,7 +128,7 @@ def file_process(_file, _args, _importer):
                 res.update(x.get_results(res))
                 store.update(x.get_internal_store())
     except Exception as e:
-        logging.exception(e)
+        logging.getLogger('stderr').exception(e)
         tokens = []
     return (res, _file, _lexer.name, tokens, store)
 
