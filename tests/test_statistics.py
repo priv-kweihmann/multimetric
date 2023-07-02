@@ -78,3 +78,14 @@ class TestClassStatistics():
         assert res.get('stats', {}).get('mean', {}).get('loc', 0) == statistics.median(v.get('loc', 0) for k, v in res.get('files', {}).items())
         assert res.get('stats', {}).get('mean', {}).get('operands_sum', 0) == statistics.median(v.get('operands_sum', 0) for k, v in res.get('files', {}).items())
         assert res.get('stats', {}).get('mean', {}).get('operators_sum', 0) == statistics.median(v.get('operators_sum', 0) for k, v in res.get('files', {}).items())
+
+    def test_stats_sd(self):
+        files = [
+                os.path.join(pytest.test_dir_samples, 'archive/c/c/baklava.c'),
+                os.path.join(pytest.test_dir_samples, 'archive/c/c-plus-plus/bubble-sort.cpp')
+        ]
+        res, _, _ = self._run(files)
+
+        assert res.get('stats', {}).get('sd', {}).get('loc', 0) == round(statistics.stdev(v.get('loc', 0) for k, v in res.get('files', {}).items()), 3)
+        assert res.get('stats', {}).get('sd', {}).get('operands_sum', 0) == round(statistics.stdev(v.get('operands_sum', 0) for k, v in res.get('files', {}).items()), 3)
+        assert res.get('stats', {}).get('sd', {}).get('operators_sum', 0) == round(statistics.stdev(v.get('operators_sum', 0) for k, v in res.get('files', {}).items()), 3)
