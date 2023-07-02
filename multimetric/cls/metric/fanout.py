@@ -63,9 +63,14 @@ class MetricBaseFanout(MetricBase):
             trim=[' ', ':']),
         'Java': TokenTreeConfig(
             start=[('Token.Keyword.Namespace', 'import')],
-            end=[('Token.Text', '\n'), ('Token.Punctuation', ':')],
+            end=[('Token.Text', '\n'), ('Token.Punctuation', ';')],
             needle=['Token.Name.Namespace'],
             trim=[' ']),
+        'JavaScript': TokenTreeConfig(
+            start=[('Token.Keyword', 'import'), ('Token.Keyword.Reserved', 'from')],
+            end=[('Token.Text', '\n'), ('Token.Punctuation', ';'), ('Token.Punctuation', '{')],
+            needle=['Token.Literal.String'],
+            trim=[' ', '"', "'"]),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
