@@ -40,26 +40,26 @@ class TokenTree():
         for _, value in iterator:
             if state == TokenTree.TreeState.START:
                 if config.match(value, config.start):
-                    logging.debug(f'Match start: {value}')
+                    logging.getLogger('stderr').debug(f'Match start: {value}')
                     state = TokenTree.TreeState.INBLOCK
             elif state == TokenTree.TreeState.INBLOCK:
                 if config.match(value, config.end):
-                    logging.debug(f'Match end: {value}')
+                    logging.getLogger('stderr').debug(f'Match end: {value}')
                     state = TokenTree.TreeState.START
                     if last_hit:
                         result.add(' '.join(last_hit))
                     last_hit = []
                 if any(str(value[0]).startswith(x) for x in config.needle):
-                    logging.debug(f'Match needle: {value}')
+                    logging.getLogger('stderr').debug(f'Match needle: {value}')
                     _extracted_value = value[1]
                     for i in config.trim:
                         _extracted_value = _extracted_value.strip(i)
                     if _extracted_value:
                         last_hit.append(_extracted_value)
                 elif str(value[0]) in ['Token.Text.Whitespace'] and value[1].strip(' ').endswith('\n'):
-                    logging.debug(f'Inblock line end: {value} -> {last_hit}')
+                    logging.getLogger('stderr').debug(f'Inblock line end: {value} -> {last_hit}')
                     if last_hit:
                         result.add(' '.join(last_hit))
                     last_hit = []
-        logging.debug(f'Found {result}')
+        logging.getLogger('stderr').debug(f'Found {result}')
         return result

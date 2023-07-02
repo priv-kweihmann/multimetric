@@ -1,5 +1,5 @@
 import os
-import sys
+import logging
 
 from multimetric.cls.importer.base import Importer
 from multimetric.cls.importer.mods.csv import ImporterCSV
@@ -14,5 +14,5 @@ def importer_pick(args, filearg):  # noqa: CFQ004
         return ImporterCSV(args, filearg)
     if _ext in [".json"]:
         return ImporterJSON(args, filearg)
-    sys.stderr.write(f"No supported importer found for {_ext}\n")
+    logging.getLogger('stderr').error(f"No supported importer found for {_ext}\n")
     return Importer(args, None)

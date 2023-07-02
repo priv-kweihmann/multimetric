@@ -1,5 +1,5 @@
 import csv
-import sys
+import logging
 
 from multimetric.cls.importer.base import Importer
 
@@ -17,4 +17,4 @@ class ImporterCSV(Importer):
                 for row in reader:
                     self._items.append(Importer.ImporterItem.from_csv(row))
         except Exception as e:
-            sys.stderr.write(f"Read error: {e}\n")
+            logging.getLogger('stderr').error(f"Read error: {e}\n")

@@ -6,6 +6,7 @@ import json
 import logging
 import multiprocessing as mp
 import os
+import sys
 import textwrap
 
 import chardet
@@ -76,6 +77,11 @@ def ArgParser():
         action="store_true",
         help="Just dump the token tree")
     parser.add_argument(
+        "--verbose",
+        default=False,
+        action="store_true",
+        help="Verbose logging output")
+    parser.add_argument(
         "--jobs",
         type=int,
         default=mp.cpu_count(),
@@ -98,7 +104,7 @@ def file_process(_file, _args, _importer):
     try:
         _lexer = lexers.get_lexer_for_filename(_file)
     except ValueError:
-        print(f'The file {_file} could not be identified automatically. Skipping this file.')
+        logging.getLogger('stderr').error(f'The file {_file} could not be identified automatically. Skipping this file.')
         return ({}, _file, 'lexer.error', [], {})
     try:
         with open(_file, "rb") as i:
@@ -110,7 +116,7 @@ def file_process(_file, _args, _importer):
         tokens = list(_lexer.get_tokens(_cnt))
         if _args.dump:
             for x in tokens:
-                print(f"{_file}: {x[0]} -> {repr(x[1])}")
+                logging.getLogger('sdtout').info(f"{_file}: {x[0]} -> {repr(x[1])}")
         else:
             _localMetrics = get_modules_metrics(_args, **_localImporter)
             _localCalc = get_modules_calculated(_args, **_localImporter)
@@ -178,10 +184,30 @@ def run(_args):
 
 def main():  # pragma: no cover
     _args = parse_args()  # pragma: no cover
+
+    # Setup logging
+    stdout_log = logging.getLogger('stdout')  # pragma: no cover
+    stdout_log.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
+
+    handler = logging.StreamHandler(sys.stdout)  # pragma: no cover
+    handler.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
+    formatter = logging.Formatter('%(message)s')  # pragma: no cover
+    handler.setFormatter(formatter)  # pragma: no cover
+    stdout_log.addHandler(handler)  # pragma: no cover
+
+    stderr_log = logging.getLogger('stderr')  # pragma: no cover
+    stderr_log.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
+
+    handler = logging.StreamHandler(sys.stderr)  # pragma: no cover
+    handler.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
+    formatter = logging.Formatter('%(levelname)s - %(message)s')  # pragma: no cover
+    handler.setFormatter(formatter)  # pragma: no cover
+    stderr_log.addHandler(handler)  # pragma: no cover
+
     _result = run(_args)  # pragma: no cover
     if not _args.dump:  # pragma: no cover
         # Output
-        print(json.dumps(_result, indent=2, sort_keys=True))  # pragma: no cover
+        logging.getLogger('stdout').info(json.dumps(_result, indent=2, sort_keys=True))  # pragma: no cover
 
 
 if __name__ == '__main__':

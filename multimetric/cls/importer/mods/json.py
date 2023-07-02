@@ -1,5 +1,5 @@
 import json
-import sys
+import logging
 
 from multimetric.cls.importer.base import Importer
 
@@ -20,4 +20,4 @@ class ImporterJSON(Importer):
                         _sev = v["severity"]
                     self._items.append(Importer.ImporterItem(_file=k, _cnt=v["content"], _sev=_sev))
         except Exception as e:
-            sys.stderr.write(f"Read error: {e}\n")
+            logging.getLogger('stderr').error(f"Read error: {e}\n")
