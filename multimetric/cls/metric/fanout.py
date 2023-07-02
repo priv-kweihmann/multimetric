@@ -34,9 +34,9 @@ class MetricBaseFanout(MetricBase):
     }
 
     _internal = {
-        "Python": {"start": ".", "end": ""},
-        "C": {"start": "\"", "end": "\""},
-        "C++": {"start": "\"", "end": "\""},
+        "Python": {"start": '.'},
+        "C": {"start": '"', "end": '"'},
+        "C++": {"start": '"', "end": '"'},
     }
 
     METRIC_FANOUT_INTERNAL = "fanout_internal"
@@ -48,21 +48,19 @@ class MetricBaseFanout(MetricBase):
         self._ext = set()
 
     def __isInternal(self, value, internal_mapping):
+        if not internal_mapping:
+            return False
         return all([value.startswith(internal_mapping["start"]),
                     value.endswith(internal_mapping["end"])])
 
     def parse_tokens(self, language, tokens):
         super().parse_tokens(language, [])
-        if language in MetricBaseFanout._internal:
-            _i = MetricBaseFanout._internal[language]
-        else:
-            _i = {"start": "", "end": ""}
 
         config = MetricBaseFanout._config.get(language, MetricBaseFanout._config['default'])
         _imports = TokenTree.get_from_token_tree(enumerate(tokens), config)
 
         for x in _imports:
-            if self.__isInternal(x, _i):
+            if self.__isInternal(x, MetricBaseFanout._internal.get(language, {})):
                 self._int.add(str(x))
             else:
                 self._ext.add(str(x))
