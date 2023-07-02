@@ -189,7 +189,7 @@ The item `stats` contains in addition to the above mentioned the following items
 * `mean` = statistical mean over all items of the metric
 * `median` = statistical median over all items of the metric
 * `min` = the minimum value of all items of the metric
-* `sd` = standard deviation over all items of the metric
+* `sd` = standard deviation over all items of the metric (needs more than one file to be passed by CLI)
 
 ## Further reading
 
