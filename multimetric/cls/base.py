@@ -21,4 +21,4 @@ class MetricBase():
         return res
 
     def get_results_global(self, value_stores):
-        return {}
+        return {}  # pragma: no cover

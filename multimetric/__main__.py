@@ -176,13 +176,13 @@ def run(_args):
     return round_float(_result)
 
 
-def main():
-    _args = parse_args()
-    _result = run(_args)
-    if not _args.dump:
+def main():  # pragma: no cover
+    _args = parse_args()  # pragma: no cover
+    _result = run(_args)  # pragma: no cover
+    if not _args.dump:  # pragma: no cover
         # Output
-        print(json.dumps(_result, indent=2, sort_keys=True))
+        print(json.dumps(_result, indent=2, sort_keys=True))  # pragma: no cover
 
 
 if __name__ == '__main__':
-    main()
+    main()  # pragma: no cover
