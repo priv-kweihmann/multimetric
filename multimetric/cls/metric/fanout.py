@@ -34,7 +34,7 @@ class MetricBaseFanout(MetricBase):
     }
 
     _internal = {
-        "Python": {"start": '.'},
+        "Python": {"start": '.', "end": ''},
         "C": {"start": '"', "end": '"'},
         "C++": {"start": '"', "end": '"'},
     }
