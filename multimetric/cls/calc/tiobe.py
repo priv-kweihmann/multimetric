@@ -23,7 +23,10 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
         self.__addArgs = kwargs
 
     def __getScaledValue(self, metrics, value):
-        return 100.0 / ((value) / (metrics[MetricBaseLOC.METRIC_LOC] / 1000.0) + 1.0)
+        try:
+            return 100.0 / ((value) / (metrics[MetricBaseLOC.METRIC_LOC] / 1000.0) + 1.0)
+        except ZeroDivisionError:
+            return 0.0
 
     def __getFromImporter(self, section, _default=0.0):
         if f"import_{section}" in self.__addArgs:

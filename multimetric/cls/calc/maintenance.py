@@ -11,27 +11,36 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
     
     @staticmethod
     def _mi_sei(metrics):
-        res = 171.0 - (5.2 * math.log2(metrics["halstead_volume"]))
-        res -= (0.23 * metrics["cyclomatic_complexity"])
-        res -= (16.2 * math.log2(metrics["loc"]))
-        res += (50.0 * math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))
-        return res
+        try:
+            res = 171.0 - (5.2 * math.log2(metrics["halstead_volume"]))
+            res -= (0.23 * metrics["cyclomatic_complexity"])
+            res -= (16.2 * math.log2(metrics["loc"]))
+            res += (50.0 * math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))
+            return res
+        except ValueError:
+            return 0
 
     @staticmethod
     def _mi_microsoft(metrics):
-        res = 171.0
-        res -= (5.2 * math.log(metrics["halstead_volume"]))
-        res -= (0.23 * metrics["cyclomatic_complexity"])
-        res -= (16.2 * math.log(metrics["loc"]) * 100.0 / 171.0)
-        return max(0, res)
+        try:
+            res = 171.0
+            res -= (5.2 * math.log(metrics["halstead_volume"]))
+            res -= (0.23 * metrics["cyclomatic_complexity"])
+            res -= (16.2 * math.log(metrics["loc"]) * 100.0 / 171.0)
+            return max(0, res)
+        except ValueError:
+            return 0
 
     @staticmethod
     def _mi_classic(metrics):
-        res = 171.0
-        res -= (5.2 * math.log(metrics["halstead_volume"]))
-        res -= (0.23 * metrics["cyclomatic_complexity"])
-        res -= (16.2 * math.log(metrics["loc"]))
-        return max(0, res)
+        try:
+            res = 171.0
+            res -= (5.2 * math.log(metrics["halstead_volume"]))
+            res -= (0.23 * metrics["cyclomatic_complexity"])
+            res -= (16.2 * math.log(metrics["loc"]))
+            return max(0, res)
+        except ValueError:
+            return 0
 
     MI_METHOD = {
         "sei": _mi_sei,
