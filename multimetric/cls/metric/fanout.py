@@ -41,6 +41,11 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Punctuation', ';')],
             needle=['Token.Name.Namespace'],
             trim=['"', "'", ' ']),
+        'Dart': TokenTreeConfig(
+            start=[('Token.Keyword', 'import')],
+            end=[('Token.Punctuation', ';')],
+            needle=['Token.Literal.String'],
+            trim=['"', "'", ' ']),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
