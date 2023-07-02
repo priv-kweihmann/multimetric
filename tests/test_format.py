@@ -22,19 +22,19 @@ class TestClassFormat():
             with open(f) as i:
                 loc.append(sum(1 for x in i.read() if x == '\n'))
         return (run(args_), file, loc)
-    
+
     def __test_format(self, obj, with_lang=True):
         assert 'comment_ratio' in obj
         assert isinstance(obj.get('comment_ratio'), float)
 
         assert 'cyclomatic_complexity' in obj
-        assert isinstance(obj.get('cyclomatic_complexity'), int)
+        assert isinstance(obj.get('cyclomatic_complexity'), (int, float))
 
         assert 'fanout_external' in obj
-        assert isinstance(obj.get('fanout_external'), int)
+        assert isinstance(obj.get('fanout_external'), (int, float))
 
         assert 'fanout_internal' in obj
-        assert isinstance(obj.get('fanout_internal'), int)
+        assert isinstance(obj.get('fanout_internal'), (int, float))
 
         assert 'halstead_bugprop' in obj
         assert isinstance(obj.get('halstead_bugprop'), float)
@@ -59,31 +59,31 @@ class TestClassFormat():
             assert 'lang' not in obj
 
         assert 'loc' in obj
-        assert isinstance(obj.get('loc'), int)
+        assert isinstance(obj.get('loc'), (int, float))
 
         assert 'maintainability_index' in obj
-        assert isinstance(obj.get('maintainability_index'), int)
+        assert isinstance(obj.get('maintainability_index'), (int, float))
 
         assert 'maintainability_index' in obj
-        assert isinstance(obj.get('maintainability_index'), int)
+        assert isinstance(obj.get('maintainability_index'), (int, float))
 
         assert 'maintainability_index' in obj
-        assert isinstance(obj.get('maintainability_index'), int)
+        assert isinstance(obj.get('maintainability_index'), (int, float))
 
         assert 'maintainability_index' in obj
-        assert isinstance(obj.get('maintainability_index'), int)
+        assert isinstance(obj.get('maintainability_index'), (int, float))
 
         assert 'operands_sum' in obj
-        assert isinstance(obj.get('operands_sum'), int)
+        assert isinstance(obj.get('operands_sum'), (int, float))
 
         assert 'operands_uniq' in obj
-        assert isinstance(obj.get('operands_uniq'), int)
+        assert isinstance(obj.get('operands_uniq'), (int, float))
 
         assert 'operators_sum' in obj
-        assert isinstance(obj.get('operators_sum'), int)
+        assert isinstance(obj.get('operators_sum'), (int, float))
 
         assert 'operators_uniq' in obj
-        assert isinstance(obj.get('operators_uniq'), int)
+        assert isinstance(obj.get('operators_uniq'), (int, float))
 
         assert 'pylint' in obj
         assert isinstance(obj.get('pylint'), float)
@@ -117,7 +117,7 @@ class TestClassFormat():
 
         assert 'tiobe_standard' in obj
         assert isinstance(obj.get('tiobe_standard'), float)
-    
+
     def test_format(self):
         file = os.path.join(pytest.test_dir_samples, 'archive/c/c/baklava.c')
         res, _, _ = self._run(file)
@@ -186,3 +186,27 @@ class TestClassFormat():
         assert 'max' in res.get('stats', {})
 
         self.__test_format(res.get('stats', {}).get('max', {}), with_lang=False)
+
+    def test_format_stats_sd(self):
+        file = os.path.join(pytest.test_dir_samples, 'archive/c/c/baklava.c')
+        res, _, _ = self._run(file)
+
+        assert isinstance(res, dict)
+        assert 'stats' in res
+
+        assert isinstance(res, dict)
+        assert 'sd' not in res.get('stats', {})
+
+        file = [
+            os.path.join(pytest.test_dir_samples, 'archive/c/c/baklava.c'),
+            os.path.join(pytest.test_dir_samples, 'archive/c/c/bubble-sort.c')
+        ]
+        res, _, _ = self._run(file)
+
+        assert isinstance(res, dict)
+        assert 'stats' in res
+
+        assert isinstance(res, dict)
+        assert 'sd' in res.get('stats', {})
+
+        self.__test_format(res.get('stats', {}).get('sd', {}), with_lang=False)
