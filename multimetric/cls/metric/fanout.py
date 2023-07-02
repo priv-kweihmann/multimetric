@@ -26,6 +26,11 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Text', '\n')],
             needle=['Token.Name.Namespace', 'Token.Keyword.Namespace', 'Token.Name'],
             trim=[]),
+        'Bash': TokenTreeConfig(
+            start=[('Token.Name.Builtin', 'source'), ('Token.Text', '.')],
+            end=[('Token.Text', '\n'), ('Token.Text', '\n\n')],
+            needle=['Token.Text'],
+            trim=[' ', '\n']),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
