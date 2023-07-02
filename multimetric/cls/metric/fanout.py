@@ -31,6 +31,11 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Text', '\n'), ('Token.Text', '\n\n')],
             needle=['Token.Text'],
             trim=[' ', '\n']),
+        'CoffeeScript': TokenTreeConfig(
+            start=[('Token.Name.Other', 'require'), ('Token.Name.Other', 'import')],
+            end=[('Token.Text', '\n'), ('Token.Text', '\n\n')],
+            needle=['Token.Literal.String'],
+            trim=['"', "'", ' ']),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
@@ -42,6 +47,7 @@ class MetricBaseFanout(MetricBase):
         "Python": {"start": '.', "end": ''},
         "C": {"start": '"', "end": '"'},
         "C++": {"start": '"', "end": '"'},
+        "CoffeeScript": {"start": './', "end": ''},
     }
 
     METRIC_FANOUT_INTERNAL = "fanout_internal"
