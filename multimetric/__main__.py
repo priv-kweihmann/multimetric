@@ -116,7 +116,7 @@ def file_process(_file, _args, _importer):
         tokens = list(_lexer.get_tokens(_cnt))
         if _args.dump:
             for x in tokens:
-                logging.getLogger('sdtout').info(f"{_file}: {x[0]} -> {repr(x[1])}")
+                logging.getLogger('stdout').info(f"{_file}: {x[0]} -> {repr(x[1])}")
         else:
             _localMetrics = get_modules_metrics(_args, **_localImporter)
             _localCalc = get_modules_calculated(_args, **_localImporter)
