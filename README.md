@@ -196,3 +196,28 @@ The item `stats` contains in addition to the above mentioned the following items
 ## Bugs & Contribution
 
 Feel free to create issues or pull requests
+
+### Contribution
+
+```mermaid
+flowchart TD
+    A[I want to contribute!] --> C(Code your changes)
+    C -->|Flake8 successful| E[Open PR]
+    C -->|pytest successful| E[Open PR]
+    C -->|Contribution guideline accepted| E[Open PR]
+    C -->|README updated| E[Open PR]
+```
+
+### Contribute settings for a new language
+
+```mermaid
+flowchart TD
+    A[I want to contribute a new language config!] --> A1(Find permissively licensed test code)
+    A1 --> B(Pygments contains a lexer for the language)
+    B --> C(Create fanout settings)
+    C --> D[Code your changes]
+    D -->|Flake8 successful| E[Open PR]
+    D -->|pytest successful| E[Open PR]
+    D -->|Contribution guideline accepted| E[Open PR]
+    D -->|README updated| E[Open PR]
+```
