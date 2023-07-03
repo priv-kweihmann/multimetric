@@ -87,6 +87,11 @@ class MetricBaseFanout(MetricBase):
             needle=['Token.Comment.Preproc'],
             trim=[' ', '"', "'", '\n', 'import '],
             include_start=True),
+        'Prolog': TokenTreeConfig(
+            start=[('Token.Literal.String', 'use')],
+            end=[('Token.Punctuation', ';'), ('Token.Text', '\n')],
+            needle=['Token.Literal'],
+            trim=[' ']),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
