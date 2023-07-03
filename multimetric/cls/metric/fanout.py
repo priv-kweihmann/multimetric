@@ -13,7 +13,7 @@ class MetricBaseFanout(MetricBase):
         'PHP': TokenTreeConfig(
             start=[('Token.Keyword', 'include'), ('Token.Keyword', 'require'),
                    ('Token.Keyword', 'include_once'), ('Token.Keyword', 'require_once')],
-            end=[('Token.Literal.String.Single', ''), ('Token.Literal.String.Double', '')],
+            end=[('Token.Punctuation', ';'), ('Token.Text', '\n')],
             needle=['Token.Literal.String'],
             trim=['"', "'"]),
         'Ruby': TokenTreeConfig(
