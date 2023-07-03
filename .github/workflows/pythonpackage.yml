@@ -27,5 +27,3 @@ jobs:
       run: python3 setup.py build
     - name: Test
       run: pytest
-    - name: Doc gen
-      run: ./gendoc.sh
