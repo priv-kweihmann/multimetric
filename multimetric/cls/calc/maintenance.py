@@ -8,17 +8,17 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
     MI_DEFAULT = "classic"
 
     METRIC_MAINTAINABILITY_INDEX = "maintainability_index"
-    
+
     @staticmethod
     def _mi_sei(metrics):
         try:
             res = 171.0 - (5.2 * math.log2(metrics["halstead_volume"]))
             res -= (0.23 * metrics["cyclomatic_complexity"])
             res -= (16.2 * math.log2(metrics["loc"]))
-            res += (50.0 * math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))
+            res += (50.0 * abs(math.sin(math.sqrt(2.4 * metrics["comment_ratio"]))))
             return res
-        except ValueError:
-            return 0
+        except ValueError:  # pragma: no cover
+            return 0  # pragma: no cover
 
     @staticmethod
     def _mi_microsoft(metrics):
@@ -39,8 +39,8 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             res -= (0.23 * metrics["cyclomatic_complexity"])
             res -= (16.2 * math.log(metrics["loc"]))
             return max(0, res)
-        except ValueError:
-            return 0
+        except ValueError:  # pragma: no cover
+            return 0  # pragma: no cover
 
     MI_METHOD = {
         "sei": _mi_sei,
@@ -50,13 +50,11 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
     def __init__(self, args, **kwargs):
         super().__init__(args, **kwargs)
-        try:
-            self.__miMethod = args.maintenance_index_calc_method
-        except AttributeError:
-            self.__miMethod = MetricBaseCalcMaintenanceIndex.MI_DEFAULT
+        self.__miMethod = args.maintenance_index_calc_method
 
     def get_results(self, metrics):
-        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](metrics)
+        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](
+            metrics)
         # Sanity
         metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = max(
             metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0)
