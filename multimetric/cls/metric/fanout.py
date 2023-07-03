@@ -108,6 +108,11 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Text', '\n'), ('Token.Punctuation', ';'), ('Token.Punctuation', '{')],
             needle=['Token.Literal.String'],
             trim=[' ', '"', "'"]),
+        'Zig': TokenTreeConfig(
+            start=[('Token.Name.Builtin', '@import')],
+            end=[('Token.Text', '\n'), ('Token.Punctuation', ';')],
+            needle=['Token.Literal'],
+            trim=[' ', '"', "'"]),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
