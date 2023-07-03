@@ -1,10 +1,11 @@
-import subprocess
+import subprocess  # noqa: S404
+
 import setuptools
 
 _long_description = "See https://github.com/priv-kweihmann/multimetric for documentation"
 _long_description_content_type = "text/plain"
 try:
-    _long_description = subprocess.check_output(
+    _long_description = subprocess.check_output(  # noqa: S607 S603
         ["pandoc", "--from", "markdown", "--to", "rst", "README.md"]).decode("utf-8")
     _long_description_content_type = "text/x-rst"
 except (subprocess.CalledProcessError, FileNotFoundError):
@@ -28,7 +29,7 @@ setuptools.setup(
         entry_points={
         "console_scripts": [
             "multimetric = multimetric.__main__:main",
-        ]
+        ],
     },
     classifiers=[
         "Development Status :: 4 - Beta",

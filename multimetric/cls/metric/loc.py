@@ -22,7 +22,7 @@ class MetricBaseLOC(MetricBase):
                 if x[1].strip(' ').endswith('\n'):
                     self._metrics[MetricBaseLOC.METRIC_LOC] += 1
             self._previous_token = x
-            
+
         self._metrics[MetricBaseLOC.METRIC_LOC] = max(self._metrics[MetricBaseLOC.METRIC_LOC], 1)
         self._internalstore["loc"] = self._metrics[MetricBaseLOC.METRIC_LOC]
 

@@ -12,7 +12,6 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
     METRIC_HALSTEAD_DIFFICULTY = "halstead_difficulty"
     METRIC_HALSTEAD_BUGS = "halstead_bugprop"
     METRIC_HALSTEAD_TIMEREQ = "halstead_timerequired"
-    
 
     @staticmethod
     def _bugpred_old(obj):
@@ -21,7 +20,7 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
     @staticmethod
     def _bugpred_new(obj):
         return obj._volume / 3000.0
-    
+
     BUGPRED_DEFAULT = "new"
     BUGPRED_METHOD = {
         "old": _bugpred_old,
