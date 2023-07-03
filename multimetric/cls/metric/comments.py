@@ -30,7 +30,7 @@ class MetricBaseComments(MetricBase):
         super().parse_tokens(language, [])
         _n = MetricBaseComments._needles
         if language in MetricBaseComments._specific:
-            _n += MetricBaseComments._specific[language]
+            _n += MetricBaseComments._specific[language]  # pragma: no cover - bug in pytest-cov
         for x in tokens:
             self.__overall += len(str(x[1]))
             if str(x[0]) in _n:

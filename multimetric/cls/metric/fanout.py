@@ -142,7 +142,7 @@ class MetricBaseFanout(MetricBase):
     def __isInternal(self, value, internal_mapping):
         if not internal_mapping:
             return False
-        return all([value.startswith(internal_mapping["start"]),
+        return all([value.startswith(internal_mapping["start"]),  # pragma: no cover - bug in pytest-cov
                     value.endswith(internal_mapping["end"])])
 
     def parse_tokens(self, language, tokens):
@@ -153,7 +153,7 @@ class MetricBaseFanout(MetricBase):
 
         for x in _imports:
             if self.__isInternal(x, MetricBaseFanout._internal.get(language, {})):
-                self._int.add(str(x))
+                self._int.add(str(x))  # pragma: no cover - bug in pytest-cov
             else:
                 self._ext.add(str(x))
         self._metrics.update({MetricBaseFanout.METRIC_FANOUT_INTERNAL: len(list(self._int)),
