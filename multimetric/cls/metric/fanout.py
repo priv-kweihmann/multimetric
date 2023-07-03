@@ -7,7 +7,7 @@ class MetricBaseFanout(MetricBase):
     _config = {
         'Go': TokenTreeConfig(
             start=[('Token.Keyword.Namespace', 'import')],
-            end=[('Token.Punctuation', ')')],
+            end=[('Token.Punctuation', '\)')],
             needle=['Token.Literal.String'],
             trim=['"', "'"]),
         'PHP': TokenTreeConfig(
@@ -18,7 +18,7 @@ class MetricBaseFanout(MetricBase):
             trim=['"', "'"]),
         'Ruby': TokenTreeConfig(
             start=[('Token.Name.Builtin', 'require')],
-            end=[('Token.Text.Whitespace', ')')],
+            end=[('Token.Text.Whitespace', '\)')],
             needle=['Token.Literal', 'Token.Literal.String.Double'],
             trim=['"', "'"]),
         'Python': TokenTreeConfig(
@@ -27,7 +27,7 @@ class MetricBaseFanout(MetricBase):
             needle=['Token.Name.Namespace', 'Token.Keyword.Namespace', 'Token.Name'],
             trim=[]),
         'Bash': TokenTreeConfig(
-            start=[('Token.Name.Builtin', 'source'), ('Token.Text', '.')],
+            start=[('Token.Name.Builtin', 'source'), ('Token.Text', '\.')],
             end=[('Token.Text', '\n'), ('Token.Text', '\n\n')],
             needle=['Token.Text'],
             trim=[' ', '\n']),
@@ -97,6 +97,12 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Punctuation', ';'), ('Token.Text', '\n')],
             needle=['Token.Name', 'Token.Keyword', 'Token.Literal', 'Token.Text'],
             trim=[' ']),
+        'Tcl': TokenTreeConfig(
+            start=[('Token.Text', 'import')],
+            end=[('Token.Text', 'forget'), ('Token.Text', '\n'), ('Token.Text', '\n\n')],
+            needle=['Token.Text'],
+            trim=[' ', '-', 'force', 'import', '\n'],
+            split_by=' '),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
