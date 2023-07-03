@@ -92,6 +92,11 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Punctuation', ';'), ('Token.Text', '\n')],
             needle=['Token.Literal'],
             trim=[' ']),
+        'Rust': TokenTreeConfig(
+            start=[('Token.Keyword', 'use')],
+            end=[('Token.Punctuation', ';'), ('Token.Text', '\n')],
+            needle=['Token.Name', 'Token.Keyword', 'Token.Literal', 'Token.Text'],
+            trim=[' ']),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
