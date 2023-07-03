@@ -48,4 +48,5 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Topic :: Software Development :: Quality Assurance",
     ],
+    python_requires='>=3.10',
 )
