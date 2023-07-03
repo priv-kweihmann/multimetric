@@ -3,7 +3,7 @@ name: Auto Release
 on:
   push:
     branches:
-      - "master"
+      - "2.x"
   workflow_dispatch:
     inputs:
       bump-version:
