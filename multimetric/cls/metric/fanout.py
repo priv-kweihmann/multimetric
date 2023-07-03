@@ -81,6 +81,12 @@ class MetricBaseFanout(MetricBase):
             end=[('Token.Text', '\n'), ('Token.Text', '\n\n')],
             needle=['Token.Literal.String'],
             trim=[' ', '"', "'"]),
+        'Objective-C': TokenTreeConfig(
+            start=[('Token.Comment.Preproc', 'import .*')],
+            end=[('Token.Comment.Preproc', '\n'), ('Token.Text', '\n'), ('Token.Text', '\n\n')],
+            needle=['Token.Comment.Preproc'],
+            trim=[' ', '"', "'", '\n', 'import '],
+            include_start=True),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
