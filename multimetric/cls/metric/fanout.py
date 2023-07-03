@@ -103,6 +103,11 @@ class MetricBaseFanout(MetricBase):
             needle=['Token.Text'],
             trim=[' ', '-', 'force', 'import', '\n'],
             split_by=' '),
+        'TypeScript': TokenTreeConfig(
+            start=[('Token.Keyword', 'import'), ('Token.Keyword.Reserved', 'from')],
+            end=[('Token.Text', '\n'), ('Token.Punctuation', ';'), ('Token.Punctuation', '{')],
+            needle=['Token.Literal.String'],
+            trim=[' ', '"', "'"]),
         'default': TokenTreeConfig(
             start=[('Token.Comment.Preproc', 'include'), ('Token.Comment.Namespace', '')],
             end=[('Token.Text.Whitespace', '\n'), ('Token.Comment.Preproc', '\n')],
@@ -116,6 +121,7 @@ class MetricBaseFanout(MetricBase):
         "C++": {"start": '"', "end": '"'},
         "CoffeeScript": {"start": './', "end": ''},
         "Julia": {"start": '.', "end": ''},
+        "TypeScript": {"start": './', "end": ''},
     }
 
     METRIC_FANOUT_INTERNAL = "fanout_internal"
