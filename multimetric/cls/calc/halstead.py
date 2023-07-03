@@ -30,10 +30,7 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
 
     def __init__(self, args, **kwargs):
         super().__init__(args, **kwargs)
-        try:
-            self.__bugPredicMethod = args.halstead_bug_predict_method
-        except AttributeError:
-            self.__bugPredicMethod = MetricBaseCalcHalstead.BUGPRED_DEFAULT
+        self.__bugPredicMethod = args.halstead_bug_predict_method
 
     def _getNs(self, metrics):
         self._N2 = float(metrics[MetricBaseOperands.METRIC_OPERANDS_SUM])
