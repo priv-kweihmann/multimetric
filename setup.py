@@ -1,17 +1,11 @@
 # SPDX-FileCopyrightText: 2023 Konrad Weihmann
 # SPDX-License-Identifier: Zlib
-import subprocess  # noqa: S404
-
 import setuptools
 
 _long_description = "See https://github.com/priv-kweihmann/multimetric for documentation"
-_long_description_content_type = "text/plain"
-try:
-    _long_description = subprocess.check_output(  # noqa: S607 S603
-        ["pandoc", "--from", "markdown", "--to", "rst", "README.md"]).decode("utf-8")
-    _long_description_content_type = "text/x-rst"
-except (subprocess.CalledProcessError, FileNotFoundError):
-    pass
+
+with open('README.md') as f:
+    _long_description = f.read()
 
 requirements = []
 with open('requirements.txt') as f:
@@ -19,12 +13,12 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="multimetric",
-    version="2.0.0",
+    version="1.3.0",
     author="Konrad Weihmann",
     author_email="kweihmann@outlook.com",
     description="Calculate code metrics in various languages",
     long_description=_long_description,
-    long_description_content_type=_long_description_content_type,
+    long_description_content_type='text/markdown',
     url="https://github.com/priv-kweihmann/multimetric",
     packages=setuptools.find_packages(exclude='tests'),
     install_requires=requirements,
