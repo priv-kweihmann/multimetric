@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
 from multimetric.cls.base import MetricBase
 from multimetric.cls.tokentree import TokenTree
 from multimetric.cls.tokentree import TokenTreeConfig

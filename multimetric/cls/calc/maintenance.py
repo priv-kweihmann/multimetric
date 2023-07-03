@@ -1,4 +1,6 @@
-import math  # noqa: F401
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
+import math
 
 from multimetric.cls.base_calc import MetricBaseCalc
 

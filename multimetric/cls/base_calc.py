@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
 class MetricBaseCalc():
 
     def __init__(self, args, **kwargs):

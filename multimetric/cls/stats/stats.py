@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
 import statistics
 
 from multimetric.cls.base_stats import MetricBaseStats

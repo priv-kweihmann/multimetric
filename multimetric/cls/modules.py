@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
 from multimetric.cls.calc.halstead import MetricBaseCalcHalstead
 from multimetric.cls.calc.maintenance import MetricBaseCalcMaintenanceIndex
 from multimetric.cls.calc.pylint import MetricBaseCalcPylint

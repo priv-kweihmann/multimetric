@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
 class MetricBase():
     def __init__(self, args, **kwargs):
         self._metrics = {"lang": []}

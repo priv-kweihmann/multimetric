@@ -99,5 +99,4 @@ def pytest_generate_tests(metafunc):
         metafunc.parametrize(m, file_map[m])
 
 def pytest_sessionfinish(session, exitstatus):
-    #shutil.rmtree(pytest.test_dir, ignore_errors=True)
-    pass
+    shutil.rmtree(pytest.test_dir, ignore_errors=True)
