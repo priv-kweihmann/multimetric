@@ -15,12 +15,14 @@ class TokenTreeConfig():
                  end: List[Tuple[str, str]],
                  needle: List[str],
                  trim: List[str],
-                 include_start: bool = False) -> None:
+                 include_start: bool = False,
+                 split_by: str = None) -> None:
         self.start = start
         self.end = end
         self.needle = needle
         self.trim = trim
         self.include_start = include_start
+        self.split_by = split_by
 
     def match(self, token, config_item: List[Tuple[str, str]]) -> bool:
         for item in config_item:
@@ -48,6 +50,14 @@ class TokenTree():
                 else:
                     item = item.replace(i, '')
             return item
+        
+        def merge(list_: List[str], res: set, config: TokenTreeConfig) -> None:
+            if not list_:
+                return
+            if config.split_by:
+                res.update(' '.join(list_).split(config.split_by))
+            else:
+                res.add(' '.join(list_))
 
         for _, value in iterator:
             if state == TokenTree.TreeState.START:
@@ -63,8 +73,7 @@ class TokenTree():
                 if config.match(value, config.end):
                     logging.getLogger('stderr').debug(f'Match end: {value}')
                     state = TokenTree.TreeState.START
-                    if last_hit:
-                        result.add(' '.join(last_hit))
+                    merge(last_hit, result, config)
                     last_hit = []
                 if any(str(value[0]).startswith(x) for x in config.needle):
                     logging.getLogger('stderr').debug(f'Match needle: {value}')
@@ -74,8 +83,7 @@ class TokenTree():
                         last_hit.append(item)
                 elif str(value[0]) in ['Token.Text.Whitespace'] and value[1].strip(' ').endswith('\n'):
                     logging.getLogger('stderr').debug(f'Inblock line end: {value} -> {last_hit}')
-                    if last_hit:
-                        result.add(' '.join(last_hit))
+                    merge(last_hit, result, config)
                     last_hit = []
         logging.getLogger('stderr').debug(f'Found {result}')
         return result
