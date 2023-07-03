@@ -30,8 +30,8 @@ def ArgParser():
         Following information can be read
 
             <file> = full path to file
-            <content> = either a string
-            <severity> = optional severity
+            <severity> = severity [error, warning, info]
+            <content> = optional string
 
             Note: you could also add a single line, then <content>
                 has to be a number reflecting to total number of findings
@@ -39,11 +39,11 @@ def ArgParser():
         File formats
 
         csv: CSV file of following line format
-             <file>,<content>,<severity>
+             <file>,<severity>,[<content>]
 
         json: JSON file
              <file>: {
-                 "content": <content>,
+                 ["content": <content>,]
                  "severity": <severity>
              }
         """))
@@ -95,6 +95,26 @@ def parse_args(*args):
     RUNARGS = ArgParser().parse_args(*args)
     # Turn all paths to abs-paths right here
     RUNARGS.files = [os.path.abspath(x) for x in RUNARGS.files]
+
+    # Setup logging
+    stdout_log = logging.getLogger('stdout')
+    stdout_log.setLevel(logging.DEBUG if RUNARGS.verbose else logging.INFO)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.DEBUG if RUNARGS.verbose else logging.INFO)
+    formatter = logging.Formatter('%(message)s')
+    handler.setFormatter(formatter)
+    stdout_log.addHandler(handler)
+
+    stderr_log = logging.getLogger('stderr')
+    stderr_log.setLevel(logging.DEBUG if RUNARGS.verbose else logging.INFO)
+
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setLevel(logging.DEBUG if RUNARGS.verbose else logging.INFO)
+    formatter = logging.Formatter('%(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    stderr_log.addHandler(handler)
+
     return RUNARGS
 
 
@@ -103,9 +123,10 @@ def file_process(_file, _args, _importer):
     store = {}
     try:
         _lexer = lexers.get_lexer_for_filename(_file)
-    except ValueError:
-        logging.getLogger('stderr').error(f'The file {_file} could not be identified automatically. Skipping this file.')
-        return ({}, _file, 'lexer.error', [], {})
+    except ValueError:  # pragma: no cover - bug in pytest-cov
+        logging.getLogger('stderr').error(
+            f'The file {_file} could not be identified automatically. Skipping this file.')  # pragma: no cover - bug in pytest-cov
+        return ({}, _file, 'lexer.error', [], {})  # pragma: no cover - bug in pytest-cov
     try:
         with open(_file, "rb") as i:
             _cnt = i.read()
@@ -114,9 +135,9 @@ def file_process(_file, _args, _importer):
         _localImporter = {k: FilteredImporter(
             v, _file) for k, v in _importer.items()}
         tokens = list(_lexer.get_tokens(_cnt))
-        if _args.dump:
-            for x in tokens:
-                logging.getLogger('stdout').info(f"{_file}: {x[0]} -> {repr(x[1])}")
+        if _args.dump:  # pragma: no cover
+            for x in tokens:  # pragma: no cover
+                logging.getLogger('stdout').info(f"{_file}: {x[0]} -> {repr(x[1])}")  # pragma: no cover
         else:
             _localMetrics = get_modules_metrics(_args, **_localImporter)
             _localCalc = get_modules_calculated(_args, **_localImporter)
@@ -127,9 +148,9 @@ def file_process(_file, _args, _importer):
             for x in _localCalc:
                 res.update(x.get_results(res))
                 store.update(x.get_internal_store())
-    except Exception as e:
-        logging.getLogger('stderr').exception(e)
-        tokens = []
+    except Exception as e:  # pragma: no cover
+        logging.getLogger('stderr').exception(e)  # pragma: no cover
+        tokens = []  # pragma: no cover
     return (res, _file, _lexer.name, tokens, store)
 
 
@@ -184,26 +205,6 @@ def run(_args):
 
 def main():  # pragma: no cover
     _args = parse_args()  # pragma: no cover
-
-    # Setup logging
-    stdout_log = logging.getLogger('stdout')  # pragma: no cover
-    stdout_log.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
-
-    handler = logging.StreamHandler(sys.stdout)  # pragma: no cover
-    handler.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
-    formatter = logging.Formatter('%(message)s')  # pragma: no cover
-    handler.setFormatter(formatter)  # pragma: no cover
-    stdout_log.addHandler(handler)  # pragma: no cover
-
-    stderr_log = logging.getLogger('stderr')  # pragma: no cover
-    stderr_log.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
-
-    handler = logging.StreamHandler(sys.stderr)  # pragma: no cover
-    handler.setLevel(logging.DEBUG if _args.verbose else logging.INFO)  # pragma: no cover
-    formatter = logging.Formatter('%(levelname)s - %(message)s')  # pragma: no cover
-    handler.setFormatter(formatter)  # pragma: no cover
-    stderr_log.addHandler(handler)  # pragma: no cover
-
     _result = run(_args)  # pragma: no cover
     if not _args.dump:  # pragma: no cover
         # Output

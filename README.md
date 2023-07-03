@@ -82,14 +82,9 @@ pip3 install multimetric
 
 ## Usage
 
-```shell
-usage: multimetric [-h] [--warn_compiler WARN_COMPILER]
-                   [--warn_duplication WARN_DUPLICATION]
-                   [--warn_functional WARN_FUNCTIONAL]
-                   [--warn_standard WARN_STANDARD]
-                   [--warn_security WARN_SECURITY] [--coverage COVERAGE]
-                   [--bugpredict {old,new}]
-                   [--maintindex {sei,classic,microsoft}]
+```text
+usage: multimetric [-h] [--warn_compiler WARN_COMPILER] [--warn_duplication WARN_DUPLICATION] [--warn_functional WARN_FUNCTIONAL] [--warn_standard WARN_STANDARD]
+                   [--warn_security WARN_SECURITY] [--coverage COVERAGE] [--dump] [--verbose] [--jobs JOBS] [--bugpredict {old,new}] [--maintindex {sei,classic,microsoft}]
                    files [files ...]
 
 Calculate code metrics in various languages
@@ -97,7 +92,7 @@ Calculate code metrics in various languages
 positional arguments:
   files                 Files to parse
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --warn_compiler WARN_COMPILER
                         File(s) holding information about compiler warnings
@@ -110,6 +105,9 @@ optional arguments:
   --warn_security WARN_SECURITY
                         File(s) File(s) holding information about found security issue
   --coverage COVERAGE   File(s) with compiler warningsFile(s) holding information about testing coverage
+  --dump                Just dump the token tree
+  --verbose             Verbose logging output
+  --jobs JOBS           Run x jobs in parallel
   --bugpredict {old,new}
                         Method how to calculate the bug prediction
   --maintindex {sei,classic,microsoft}
@@ -120,8 +118,8 @@ Currently you could import files of the following types for --warn_* or --covera
 Following information can be read
 
     <file> = full path to file
-    <content> = either a string
-    <severity> = optional severity
+    <severity> = severity [error, warning, info]
+    <content> = optional string
 
     Note: you could also add a single line, then <content>
         has to be a number reflecting to total number of findings
@@ -129,11 +127,11 @@ Following information can be read
 File formats
 
 csv: CSV file of following line format
-     <file>,<content>,<severity>
+     <file>,<severity>,[<content>]
 
 json: JSON file
      <file>: {
-         "content": <content>,
+         ["content": <content>,]
          "severity": <severity>
      }
 ```

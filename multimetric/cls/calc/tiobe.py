@@ -43,10 +43,7 @@ class MetricBaseCalcTIOBE(MetricBaseCalc):
         return float(min(max(120.0 - ((8.0 * _int) + (2.0 * _ext)), 0.0), 100.0))
 
     def __getTiobeCoverage(self, metrics):
-        _per = self.__getFromImporter("coverage", _default=100.0)
-        if _per < 1.0:
-            # No coverage
-            return 0.0
+        _per = max(0.0, self.__getFromImporter("coverage", _default=100.0))
         return min(((0.75 * _per) + 32.5), 100.0)
 
     def __getTiobeStandard(self, metrics):

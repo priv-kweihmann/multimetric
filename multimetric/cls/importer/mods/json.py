@@ -15,9 +15,8 @@ class ImporterJSON(Importer):
             with open(self._input) as i:
                 reader = json.load(i)
                 for k, v in reader.items():
-                    _sev = None
-                    if "severity" in v:
-                        _sev = v["severity"]
-                    self._items.append(Importer.ImporterItem(_file=k, _cnt=v["content"], _sev=_sev))
+                    self._items.append(Importer.ImporterItem(_file=k,
+                                                             _sev=v["severity"],
+                                                             _cnt=v.get('content', None)))
         except Exception as e:
             logging.getLogger('stderr').error(f"Read error: {e}\n")

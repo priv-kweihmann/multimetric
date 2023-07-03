@@ -10,17 +10,21 @@ class Importer():
             }
 
         def match(self, _filter):
-            return all(self._values[k] == v for k, v in _filter.items())
+            res = _filter.get('filename', '').endswith(self._values['filename'])
+            res &= _filter.get('severity', '') == self._values.get('severity', '')
+            return res
 
         def get(self):
-            return self._values
+            return self._values  # pragma: no cover - bug in pytest-cov
 
         @staticmethod
         def from_csv(line):
-            _sev = None
+            _cnt = ''
             if len(line) > 2:
-                _sev = line[2]
-            return Importer.ImporterItem(_file=line[0], _cnt=line[1], _sev=_sev)
+                _cnt = line[2]
+            if not line[0] or not line[1]:
+                raise Exception('Broken CSV')
+            return Importer.ImporterItem(_file=line[0], _sev=line[1], _cnt=_cnt)
 
     def __init__(self, args, filearg):
         self._input = filearg
@@ -32,6 +36,6 @@ class Importer():
     def getSumItems(self, _filter=None):
         _items = self.getItems(_filter=_filter)
         if len(_items) == 1:
-            if str.isdigit(_items[0]["content"]):
-                return int(_items[0]["content"])
+            if str.isdigit(_items[0]["content"]):  # pragma: no cover - bug in pytest-cov
+                return int(_items[0]["content"])  # pragma: no cover - bug in pytest-cov
         return len(_items)

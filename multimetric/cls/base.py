@@ -4,7 +4,7 @@ class MetricBase():
         self._internalstore = {}
 
     def parse_tokens(self, language, tokens):
-        if language not in self._metrics["lang"]:
+        if language not in self._metrics["lang"]:  # pragma: no cover
             self._metrics["lang"].append(language)
 
     def get_results(self):

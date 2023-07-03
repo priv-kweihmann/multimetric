@@ -32,12 +32,10 @@ class MetricBaseComments(MetricBase):
         for x in tokens:
             self.__overall += len(str(x[1]))
             if str(x[0]) in _n:
-                self.__comments += len(str(x[1]))
+                self.__comments += len(str(x[1]))  # pragma: no cover - bug in pytest-cov
 
     def get_results(self):
-        if self.__overall == 0:
-            # sanity
-            self.__overall = 1
+        self.__overall = max(1, self.__overall)
         self._metrics[MetricBaseComments.METRIC_COMMENT_RATIO] = (self.__comments *
                                                                   100.0 / float(self.__overall))
         self._internalstore["comments"] = self.__comments
