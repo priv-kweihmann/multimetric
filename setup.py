@@ -20,8 +20,7 @@ setuptools.setup(
     long_description=_long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/priv-kweihmann/multimetric",
-    packages=setuptools.find_packages(exclude='tests',),
-    install_requires=requirements,
+    packages=setuptools.find_packages(exclude=('tests',)),
         entry_points={
         "console_scripts": [
             "multimetric = multimetric.__main__:main",
