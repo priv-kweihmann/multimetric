@@ -26,8 +26,8 @@ class TokenTreeConfig():
 
     def match(self, token, config_item: List[Tuple[str, str]]) -> bool:
         for item in config_item:
-            type_, val = item
-            if str(token[0]).startswith(str(type_)) and (re.match(val, token[1]) or not val):
+            type_, value = item
+            if str(token[0]).startswith(str(type_)) and (re.match(value, token[1]) or not value):
                 return True
         return False
 
