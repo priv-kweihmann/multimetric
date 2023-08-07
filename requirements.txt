@@ -1,2 +1,2 @@
 chardet ~= 5.2
-pygments ~= 2.15
+pygments ~= 2.16
