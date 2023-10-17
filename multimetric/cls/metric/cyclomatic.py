@@ -71,7 +71,7 @@ class MetricBaseCyclomaticComplexity(MetricBase):
         self._metrics[
             MetricBaseCyclomaticComplexity.METRIC_CYCLOMATIC_COMPLEXITY
         ] = max(
-            self._internalstore["conditions"] - self._internalstore["exitpoints"] + 2, 0
+            self._internalstore["conditions"] - self._internalstore["exitpoints"] + 2, 0,
         )
         return self._metrics
 
@@ -95,6 +95,6 @@ class MetricBaseCyclomaticComplexity(MetricBase):
             __exitPoints += x["exitpoints"]
         return {
             MetricBaseCyclomaticComplexity.METRIC_CYCLOMATIC_COMPLEXITY: max(
-                __conditions - __exitPoints + 2, 0
+                __conditions - __exitPoints + 2, 0,
             ),
         }

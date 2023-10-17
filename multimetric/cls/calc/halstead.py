@@ -295,13 +295,13 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
 
         """
         metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_VOLUME] = self._getVolume(
-            metrics
+            metrics,
         )
         metrics[
             MetricBaseCalcHalstead.METRIC_HALSTEAD_DIFFICULTY
         ] = self._getDifficulty(metrics)
         metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_EFFORT] = self._getEffort(
-            metrics
+            metrics,
         )
         metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_TIMEREQ] = self._getTime(metrics)
         metrics[MetricBaseCalcHalstead.METRIC_HALSTEAD_BUGS] = self._getBug(metrics)

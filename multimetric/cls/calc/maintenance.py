@@ -227,9 +227,9 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         ] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](metrics)
         # Sanity
         metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = max(
-            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0,
         )
         metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = min(
-            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 100
+            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 100,
         )
         return super().get_results(metrics)
