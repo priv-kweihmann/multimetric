@@ -72,9 +72,9 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
         """
         try:
-            res = 171.0 - (5.2 * math.log2(metrics["halstead_volume"]))
+            res = 171.0 - (5.2 * math.log(metrics["halstead_volume"]))
             res -= 0.23 * metrics["cyclomatic_complexity"]
-            res -= 16.2 * math.log2(metrics["loc"])
+            res -= 16.2 * math.log(metrics["loc"])
             res += 50.0 * abs(math.sin(math.sqrt(2.4 * metrics["comment_ratio"])))
             return res
         except ValueError:  # pragma: no cover
@@ -126,7 +126,8 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             res = 171.0
             res -= 5.2 * math.log(metrics["halstead_volume"])
             res -= 0.23 * metrics["cyclomatic_complexity"]
-            res -= 16.2 * math.log(metrics["loc"]) * 100.0 / 171.0
+            res -= 16.2 * math.log(metrics["loc"])
+            res *= 100.0 / 171.0
             return max(0, res)
         except ValueError:
             return 0
@@ -179,8 +180,8 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
 
     MI_METHOD = {
         "sei": _mi_sei,
-        "classic": _mi_microsoft,
-        "microsoft": _mi_classic,
+        "classic": _mi_classic,
+        "microsoft": _mi_microsoft,
     }
 
     def __init__(self, args, **kwargs):
