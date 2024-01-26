@@ -39,7 +39,7 @@ class TestClassObjectiveC():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 4009.982
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 2298.434
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 86
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 87.403
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 57.442
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 142
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 52
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 227

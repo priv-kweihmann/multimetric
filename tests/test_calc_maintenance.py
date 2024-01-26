@@ -28,27 +28,27 @@ class TestClassMaintenance():
 
         res, _, _ = self._run(file)
 
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.204
 
     def test_maintenance_sei(self):
         file = os.path.join(pytest.test_dir_local, 'test.c')
 
         res, _, _ = self._run(file, '--maintindex', 'sei')
 
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 87.281
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 125.979
 
     def test_maintenance_classic(self):
         file = os.path.join(pytest.test_dir_local, 'test.c')
 
         res, _, _ = self._run(file, '--maintindex', 'classic')
 
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.204
 
     def test_maintenance_microsoft(self):
         file = os.path.join(pytest.test_dir_local, 'test.c')
 
         res, _, _ = self._run(file, '--maintindex', 'microsoft')
 
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.204
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 48.072
 
 

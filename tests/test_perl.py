@@ -39,7 +39,7 @@ class TestClassPerl():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 23.441
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 105.486
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 13
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 104.533
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 7
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 7
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 20

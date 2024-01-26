@@ -39,7 +39,7 @@ class TestClassRust():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 2514.892
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 1512.252
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 42
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 96.599
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 71.459
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 91
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 38
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 162

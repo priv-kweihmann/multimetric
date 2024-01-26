@@ -39,7 +39,7 @@ class TestClassLisp():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 22.116
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 113.738
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 15
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 102.053
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 7
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 3
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 37

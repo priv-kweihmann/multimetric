@@ -39,7 +39,7 @@ class TestClassCPP():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 2442.23
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 986.285
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 31
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 77.681
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 78
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 14
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 123

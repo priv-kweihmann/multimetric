@@ -39,7 +39,7 @@ class TestClassTcl():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 5.076
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 68.532
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 6
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 119.532
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 16
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 12
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 2

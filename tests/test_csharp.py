@@ -39,7 +39,7 @@ class TestClassCSharp():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 1767.624
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 1156.991
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 47
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 96.926
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 71.029
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 70
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 28
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 135

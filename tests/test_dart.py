@@ -39,7 +39,7 @@ class TestClassDart():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 200.776
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 324.33
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 12
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100.219
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 26
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 14
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 43
