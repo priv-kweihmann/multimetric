@@ -155,19 +155,18 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         -----
         This method uses the following formula[1]_ to calculate the maintenance index:
 
-        171 - 5.2 x ln(aveVol) - 0.23 x aveV(g’) - 16.2 x ln(aveLoC) + (50 x sin(sqrt(2.46 x perCM)))
+        171 - 5.2 x ln(aveVol) - 0.23 x aveV(g’) - 16.2 x ln(aveLoC)
 
         where:
             - aveVol is average Halstead Volume
             - aveV(g’) is average extended cyclomatic complexity per module
             - aveLoC is average Lines Of Code
-            - perCM is percent of comments per module
 
         The result is returned as a float value, higher is better.
 
         References
         ----------
-        .. [1] https://www.ecs.csun.edu/~rlingard/comp589/ColemanPaper.pdf
+        .. [1] https://learn.microsoft.com/en-us/visualstudio/code-quality/code-metrics-maintainability-index-range-and-meaning?view=vs-2022
         """
         try:
             res = 171.0
@@ -226,11 +225,4 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         metrics[
             MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX
         ] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](metrics)
-        # Sanity
-        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = max(
-            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 0,
-        )
-        metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX] = min(
-            metrics[MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX], 100,
-        )
         return super().get_results(metrics)
