@@ -39,7 +39,7 @@ class TestClassLua():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 344.877
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 419.227
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 14
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 95.008
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 55
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 13
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 42

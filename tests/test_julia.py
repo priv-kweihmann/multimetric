@@ -39,7 +39,7 @@ class TestClassJulia():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 352.917
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 495.0
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 22
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 87.741
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 49
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 21
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 50

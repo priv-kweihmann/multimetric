@@ -39,7 +39,7 @@ class TestClassPHP():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 225.857
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 271.029
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 16
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 95.802
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 24
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 12
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 33

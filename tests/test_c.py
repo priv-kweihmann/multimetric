@@ -39,7 +39,7 @@ class TestClassC():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 800.259
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 620.0
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 28
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.204
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 41
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 15
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 83

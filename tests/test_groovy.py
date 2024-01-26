@@ -39,7 +39,7 @@ class TestClassGroovy():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 323.571
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 376.519
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 20
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 90.708
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 33
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 16
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 43

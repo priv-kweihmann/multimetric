@@ -39,7 +39,7 @@ class TestClassTypeScript():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 163.147
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 301.195
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 6
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 111.833
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 24
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 16
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 38

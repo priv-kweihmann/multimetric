@@ -39,7 +39,7 @@ class TestClassGo():
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 528.809
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 475.928
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 15
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 100
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 94.15
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 40
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 14
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 59
