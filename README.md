@@ -83,8 +83,10 @@ pip3 install multimetric
 ## Usage
 
 ```text
-usage: multimetric [-h] [--warn_compiler WARN_COMPILER] [--warn_duplication WARN_DUPLICATION] [--warn_functional WARN_FUNCTIONAL] [--warn_standard WARN_STANDARD]
-                   [--warn_security WARN_SECURITY] [--coverage COVERAGE] [--dump] [--verbose] [--jobs JOBS] [--bugpredict {old,new}] [--maintindex {sei,classic,microsoft}]
+usage: multimetric [-h] [--warn_compiler WARN_COMPILER] [--warn_duplication WARN_DUPLICATION]
+                   [--warn_functional WARN_FUNCTIONAL] [--warn_standard WARN_STANDARD] [--warn_security WARN_SECURITY]
+                   [--coverage COVERAGE] [--dump] [--verbose] [--jobs JOBS] [--bugpredict {old,new}]
+                   [--maintindex {sei,classic,microsoft,individual}] [--maintindex-formula MAINTENANCE_INDEX_CALC_FORMULA]
                    files [files ...]
 
 Calculate code metrics in various languages
@@ -110,8 +112,14 @@ options:
   --jobs JOBS           Run x jobs in parallel
   --bugpredict {old,new}
                         Method how to calculate the bug prediction
-  --maintindex {sei,classic,microsoft}
+  --maintindex {sei,classic,microsoft,individual}
                         Method how to calculate the maintainability index
+  --maintindex-formula MAINTENANCE_INDEX_CALC_FORMULA
+                        Formula to calculate the Index. You can access the metrics calculated by
+                        the tool directly for example for lines of code write 'loc'.
+                        Example: "max(0,171.0 - 5.2 * math.log(halstead_volume) - 0.23 *
+                        cyclomatic_complexity - 16.2 * math.log(loc))"
+                        For all possible metrics see section Item structure
 
 Currently you could import files of the following types for --warn_* or --coverage
 
