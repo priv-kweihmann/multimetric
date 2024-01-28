@@ -50,3 +50,7 @@ def get_additional_parser_args(parser):
                         default=MetricBaseCalcMaintenanceIndex.MI_DEFAULT,
                         help="Method how to calculate the maintainability index",
                         dest="maintenance_index_calc_method")
+    parser.add_argument("--maintindex-formula",
+                        default="max(0,171.0 - 5.2 * math.log(halstead_volume) - 0.23* cyclomatic_complexity -16.2 * math.log(loc))",
+                        help="Python Formula to calculate the maintainability index if individul is used, defaults to classic method",
+                        dest="maintenance_index_calc_formula")

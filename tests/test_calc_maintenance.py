@@ -50,5 +50,20 @@ class TestClassMaintenance():
         res, _, _ = self._run(file, '--maintindex', 'microsoft')
 
         assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 48.072
+    
+    def test_maintenance_individual_classic(self):
+        file = os.path.join(pytest.test_dir_local, 'test.c')
+
+        res, _, _ = self._run(file, '--maintindex', 'individual')
+
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.204
+
+    def test_maintenance_individual(self):
+        file = os.path.join(pytest.test_dir_local, 'test.c')
+
+        res, _, _ = self._run(file, '--maintindex', 'individual','--maintindex-formula','max(0,171.0 - 5.2 * math.log(halstead_volume) - 0.23* cyclomatic_complexity -16.2 * math.log(loc)) + math.sin(math.sqrt(2.4*comment_ratio/100.0))')
+
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 82.612
+
 
 

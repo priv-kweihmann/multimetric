@@ -34,13 +34,16 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
     METRIC_MAINTAINABILITY_INDEX = "maintainability_index"
 
     @staticmethod
-    def _mi_sei(metrics):
+    def _mi_sei(metrics,formula):
         """Calculate the maintenance index using the SEI method.
 
         Parameters
         ----------
         metrics : dict
             The metrics used for calculation.
+
+        formula : string
+            Unused
 
         Returns
         -------
@@ -56,7 +59,7 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         -----
         The SEI maintainability index as published[1]_ is:
 
-        171 - 5.2 * ln(aveV) - 0.23 * aveV(g’) - 16.2 * ln (aveLOC) - 50 * sin(sqrt(2.4 * perCM))
+        171 - 5.2 * ln(aveV) - 0.23 * aveV(g’) - 16.2 * ln (aveLOC) + 50 * sin(sqrt(2.4 * perCM))
 
         where:
             - aveV = average Halstead Volume V per module
@@ -81,13 +84,16 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             return 0  # pragma: no cover
 
     @staticmethod
-    def _mi_microsoft(metrics):
+    def _mi_microsoft(metrics,formula):
         """Calculate the maintenance index using the Microsoft method.
 
         Parameters
         ----------
         metrics : dict
             The metrics used for calculation.
+
+        formula : string
+            Unused
 
         Returns
         -------
@@ -133,13 +139,16 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             return 0
 
     @staticmethod
-    def _mi_classic(metrics):
+    def _mi_classic(metrics,formula):
         """Calculate the maintenance index using the classic method.
 
         Parameters
         ----------
         metrics : dict
             The metrics used for calculation.
+
+        formula : string
+            Unused
 
         Returns
         -------
@@ -176,11 +185,44 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             return max(0, res)
         except ValueError:  # pragma: no cover
             return 0  # pragma: no cover
+        
+    @staticmethod
+    def _mi_individual(metrics,formula):
+        """Calculate the maintainability index using a given method by the user.
+
+        Parameters
+        ----------
+        metrics : dict
+            The metrics used for calculation.
+
+        formula : string
+            The formula which is used to evaluate the maintainability index
+
+        Returns
+        -------
+        float
+            The calculated maintenance index.
+
+        Raises
+        ------
+        ValueError
+            If any of the required metrics are missing.
+
+        Notes
+        -----
+
+        """
+        try:
+            local_namespace = {'math': math}
+            return eval(formula,local_namespace,metrics)
+        except ValueError:  # pragma: no cover
+            return 0  # pragma: no cover
 
     MI_METHOD = {
         "sei": _mi_sei,
         "classic": _mi_classic,
         "microsoft": _mi_microsoft,
+        "individual": _mi_individual,
     }
 
     def __init__(self, args, **kwargs):
@@ -201,6 +243,7 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         """
         super().__init__(args, **kwargs)
         self.__miMethod = args.maintenance_index_calc_method
+        self.__miFormula = args.maintenance_index_calc_formula
 
     def get_results(self, metrics):
         """Calculate the maintenance index metric and return the results.
@@ -224,5 +267,5 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
         """
         metrics[
             MetricBaseCalcMaintenanceIndex.METRIC_MAINTAINABILITY_INDEX
-        ] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](metrics)
+        ] = MetricBaseCalcMaintenanceIndex.MI_METHOD[self.__miMethod](metrics,self.__miFormula)
         return super().get_results(metrics)
