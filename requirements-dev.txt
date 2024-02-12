@@ -33,4 +33,4 @@ pytest-socket == 0.7.0
 pytest-sugar == 1.0.0
 pytest-tldr == 0.2.5
 requests == 2.31.0
-twine == 4.0.2
+twine == 5.0.0
