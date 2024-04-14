@@ -4,8 +4,8 @@ import os
 import logging
 
 from multimetric.cls.importer.base import Importer
-from multimetric.cls.importer.mods.csv import ImporterCSV
-from multimetric.cls.importer.mods.json import ImporterJSON
+from multimetric.cls.importer.mods.csv_importer import ImporterCSV
+from multimetric.cls.importer.mods.json_importer import ImporterJSON
 
 
 def importer_pick(args, filearg):  # noqa: CFQ004
