@@ -129,8 +129,8 @@ class MetricBaseCalcMaintenanceIndex(MetricBaseCalc):
             res -= 16.2 * math.log(metrics["loc"])
             res *= 100.0 / 171.0
             return max(0, res)
-        except ValueError:
-            return 0
+        except ValueError:  # pragma: no cover
+            return 0  # pragma: no cover
 
     @staticmethod
     def _mi_classic(metrics):
