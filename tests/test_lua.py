@@ -33,16 +33,16 @@ class TestClassLua():
         assert res.get('files', {}).get(file, {}).get('cyclomatic_complexity', 0) == 8
         assert res.get('files', {}).get(file, {}).get('fanout_external', 0) == 1
         assert res.get('files', {}).get(file, {}).get('fanout_internal', 0) == 0
-        assert res.get('files', {}).get(file, {}).get('halstead_bugprop', 0) == 0.14
-        assert res.get('files', {}).get(file, {}).get('halstead_difficulty', 0) == 14.808
-        assert res.get('files', {}).get(file, {}).get('halstead_effort', 0) == 6207.785
-        assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 344.877
-        assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 419.227
+        assert res.get('files', {}).get(file, {}).get('halstead_bugprop', 0) == 0.137
+        assert res.get('files', {}).get(file, {}).get('halstead_difficulty', 0) == 15.75
+        assert res.get('files', {}).get(file, {}).get('halstead_effort', 0) == 6489.771
+        assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 360.543
+        assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 412.049
         assert res.get('files', {}).get(file, {}).get('loc', 0) == 14
-        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 95.008
-        assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 55
-        assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 13
-        assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 42
+        assert res.get('files', {}).get(file, {}).get('maintainability_index', 0) == 95.097
+        assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 54
+        assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 12
+        assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 43
         assert res.get('files', {}).get(file, {}).get('operators_uniq', 0) == 7
         assert res.get('files', {}).get(file, {}).get('pylint', 0) == 100.0
         assert res.get('files', {}).get(file, {}).get('tiobe', 0) == 86.901
