@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  VERSION_FILE: setup.py
+  VERSION_FILE: pyproject.toml
   MODULE_CODE: multimetric/*
   PYPI_PUBLISH: 1
 
@@ -57,7 +57,7 @@ jobs:
       with:
         filters: |
           relevant-for-release:
-            - 'requirements.txt'
+            - '${{ env.VERSION_FILE }}'
             - '${{ env.MODULE_CODE }}'
 
     - name: Check if we need to release
@@ -86,19 +86,20 @@ jobs:
     - name: Install dependencies
       if: steps.release-needed.outputs.DO_RELEASE == 'true'
       run: |
-        python -m pip install --upgrade pip build
-        pip install -r requirements.txt
+        python -m pip install --upgrade pip
+        pip install .
     
     - name: Bump version
       id: version-bump
       run: |
-        pip install -r requirements-dev.txt
-        bump2version --list ${{ steps.release-needed.outputs.RELEASE_TYPE }} ${{ env.VERSION_FILE }} >> $GITHUB_OUTPUT
+        pip install .[dev]
+        bump-my-version bump --verbose ${{ steps.release-needed.outputs.RELEASE_TYPE }}
+        echo "new_version=$(bump-my-version show current_version)" >> $GITHUB_OUTPUT
       
     - name: Build
       if: steps.release-needed.outputs.DO_RELEASE == 'true'
       run: |
-        python -m build --sdist --wheel
+        python3 -m build --sdist --wheel
 
     - name: Commit new version
       if: steps.release-needed.outputs.DO_RELEASE == 'true'

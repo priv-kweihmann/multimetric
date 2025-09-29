@@ -77,8 +77,7 @@ pip3 install multimetric
 
 * git clone this repository
 * cd to \<clone folder\>
-* Install the needed requirements by running ```pip3 install -r requirements.txt```
-* run `python3 setup.py build`
+* run `pip3 install .`
 
 ## Usage
 
