@@ -1,0 +1,87 @@
+# SPDX-FileCopyrightText: 2025 Konrad Weihmann
+# SPDX-License-Identifier: Zlib
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.bumpversion]
+current_version = "2.2.2"
+tag = false
+commit = false
+
+[tool.setuptools]
+dynamic.optional-dependencies = {dev = { file = ["requirements-dev.txt"] }}
+include-package-data = false
+packages.find.where = ["."] 
+packages.find.exclude = ["docs*", "tests*", ".*tests*", "tests", ".*tests.*"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=multimetric --cov-report term-missing --cov-branch --no-header --quiet --random-order --random-order-bucket=global --showlocals -rs"
+
+[tool.flake8]
+no-accept-encodings = true
+max-line-length = 127
+max-complexity = 10
+ignore = [
+    "C901",
+    "CFQ001",
+    "CFQ002",
+    "CFQ004",
+    "D1",
+    "D2",
+    "D4",
+    "DAR",
+    "E261",
+    "E302",
+    "E501",
+    "I001",
+    "I005",
+    "N802",
+    "N803",
+    "N806",
+    "Q000",
+    "T201",
+    "VNE001",
+    "W504"
+]
+exclude = [ "tests/*" ]
+statistics = false
+
+[project]
+name = "multimetric"
+requires-python = ">= 3.10"
+version = "2.2.2"
+description = "Calculate code metrics in various languages"
+readme = "README.md"
+maintainers = [
+  {name = "Konrad Weihmann", email = "kweihmann@outlook.com"}
+]
+license = "Zlib"
+license-files = ["LICENSE.Zlib"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = [
+  "chardet ~= 5.2",
+  "pygments ~= 2.19"
+]
+dynamic = ["optional-dependencies"]
+
+[project.scripts]
+multimetric = "multimetric.__main__:main"
+
+[project.urls]
+homepage = "https://github.com/priv-kweihmann/multimetric"
+repository = "https://github.com/priv-kweihmann/multimetric.git"
+bugtracker = "https://github.com/priv-kweihmann/multimetric/issues"
