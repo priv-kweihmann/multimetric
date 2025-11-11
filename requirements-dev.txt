@@ -29,6 +29,6 @@ pytest-parallel == 0.1.1
 pytest-random-order == 1.2.0
 pytest-socket == 0.7.0
 pytest-sugar == 1.1.1
-pytest-tldr == 0.2.5
+pytest-tldr == 0.2.6
 requests == 2.32.5
 twine == 6.2.0
