@@ -22,7 +22,7 @@ flake8-print == 5.0.0
 flake8-quotes == 3.4.0
 flake8-requirements == 2.3.0
 flake8-variables-names == 0.0.6
-pytest == 9.0.1
+pytest == 9.0.2
 pytest-cov == 3.0.0
 pytest-icdiff == 0.9
 pytest-parallel == 0.1.1
