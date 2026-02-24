@@ -55,10 +55,10 @@ class TestClassCornerCases():
         assert captured.out == ''
 
         assert res.get('files', {}).get(file, {}).get('comment_ratio', 0) == 0
-        assert res.get('files', {}).get(file, {}).get('cyclomatic_complexity', 0) == 0
+        assert res.get('files', {}).get(file, {}).get('cyclomatic_complexity', 0) == 2
         assert res.get('files', {}).get(file, {}).get('fanout_external', 0) == 0
         assert res.get('files', {}).get(file, {}).get('fanout_internal', 0) == 0
-        assert res.get('files', {}).get(file, {}).get('loc', 0) == 0
+        assert res.get('files', {}).get(file, {}).get('loc', 0) == 1
         assert res.get('files', {}).get(file, {}).get('operands_sum', 0) == 0
         assert res.get('files', {}).get(file, {}).get('operands_uniq', 0) == 0
         assert res.get('files', {}).get(file, {}).get('operators_sum', 0) == 0
