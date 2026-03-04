@@ -74,7 +74,7 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
 ]
 dependencies = [
-  "chardet >= 5.2,< 7.0",
+  "chardet >= 5.2,< 8.0",
   "pygments ~= 2.19"
 ]
 dynamic = ["optional-dependencies"]
