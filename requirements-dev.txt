@@ -27,7 +27,7 @@ pytest-cov == 3.0.0
 pytest-icdiff == 0.9
 pytest-parallel == 0.1.1
 pytest-random-order == 1.2.0
-pytest-socket == 0.8.0
+pytest-socket == 0.8.1
 pytest-sugar == 1.1.1
 pytest-tldr == 0.2.6
 requests == 2.34.2
