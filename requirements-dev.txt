@@ -2,7 +2,7 @@ Flake8-pyproject == 1.2.4
 bump-my-version == 1.5.1
 build == 1.6.1
 dlint == 0.16.0
-flake8 == 7.3.0
+flake8 == 7.4.1
 flake8-2020 == 1.8.1
 flake8-broken-line == 1.0.0
 flake8-bugbear == 26.9.9
