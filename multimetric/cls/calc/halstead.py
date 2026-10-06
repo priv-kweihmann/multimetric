@@ -71,10 +71,10 @@ class MetricBaseCalcHalstead(MetricBaseCalc):
         Returns
         -------
         float
-            The bug prediction using the old method.
+            Delivered bugs B = E ** (2/3) / 3000 (Halstead, 1977).
 
         """
-        return (obj._effort * (2.0 / 3.0)) / 3000.0
+        return (obj._effort ** (2.0 / 3.0)) / 3000.0
 
     @staticmethod
     def _bugpred_new(obj):
