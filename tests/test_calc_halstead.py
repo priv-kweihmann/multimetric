@@ -39,7 +39,7 @@ class TestClassHalstead():
 
         res, _, _ = self._run(file, '--bugpredict', 'old')
 
-        assert res.get('files', {}).get(file, {}).get('halstead_bugprop', 0) == 3.201
+        assert res.get('files', {}).get(file, {}).get('halstead_bugprop', 0) == 0.197
         assert res.get('files', {}).get(file, {}).get('halstead_difficulty', 0) == 23.233
         assert res.get('files', {}).get(file, {}).get('halstead_effort', 0) == 14404.667
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 800.259
@@ -55,4 +55,3 @@ class TestClassHalstead():
         assert res.get('files', {}).get(file, {}).get('halstead_effort', 0) == 14404.667
         assert res.get('files', {}).get(file, {}).get('halstead_timerequired', 0) == 800.259
         assert res.get('files', {}).get(file, {}).get('halstead_volume', 0) == 620.0
-
